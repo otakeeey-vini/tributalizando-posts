@@ -9,7 +9,7 @@ Tipos de lâmina (campo "type"):
   point      n, title, body, note
   big        kicker, figure, statement, body
   checklist  title, items[], note
-  cta        title, body
+  cta        title, body, actions[] (o gancho "Siga @tributalizando" entra sozinho se faltar)
 Marcação: **texto** = destaque dourado (em fundo verde) / verde (em fundo creme).
 """
 import html
@@ -104,6 +104,17 @@ CHECK = '<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" s
 ARROW = '<svg width="34" height="34" viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 
 
+FOLLOW = "**Siga** @tributalizando: cripto e imposto sem juridiquês"
+
+
+def with_follow(actions):
+    """Toda lâmina final termina com o gancho para seguir o perfil."""
+    acts = [list(a) for a in actions]
+    if not any("siga" in str(v).lower() for _, v in acts):
+        acts.append([str(len(acts) + 1), FOLLOW])
+    return acts
+
+
 def md(text):
     t = html.escape(text or "")
     t = re.sub(r"\*\*(.+?)\*\*", r"<em>\1</em>", t)
@@ -147,11 +158,11 @@ def slide_html(s, i, n):
         lis = "".join(f'<li><div class="box">{CHECK}</div><div>{md(x)}</div></li>' for x in s["items"])
         inner = f'<h2>{md(s["title"])}</h2><ul class="items">{lis}</ul>{note(s)}'
     elif t == "cta":
-        rows = "".join(f'<div><span>{k}</span>{md(v)}</div>' for k, v in s.get("actions", [
+        rows = "".join(f'<div><span>{k}</span><p>{md(v)}</p></div>' for k, v in with_follow(s.get("actions", [
             ("1", "**Salve** para consultar depois"),
             ("2", "**Envie** para quem opera cripto"),
             ("3", "**Comente** sua dúvida aqui"),
-        ]))
+        ])))
         inner = (f'<h2>{md(s["title"])}</h2>'
                  + (f'<div class="quote">{md(s["body"])}</div>' if s.get("body") else "")
                  + f'<div class="cta-list">{rows}</div><div class="spacer"></div><div class="deco"></div>')

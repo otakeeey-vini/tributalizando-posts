@@ -19,7 +19,7 @@ O id do documento é igual ao nome da pasta na fila. Post feito a partir de suge
 `publish_now: true` = o dono clicou em **Publicar agora** no painel; o painel dispara a tarefa agendada
 "Tributalizando · publicar agora" (trig_01QeinJVxUXpyxPkTYctGXWB), que leva o post à fila e publica na hora.
 
-Sugestões do dono (`suggestions/<id>` no painel): `text, format ("" | carrossel | imagem única), date ("AAAA-MM-DD" ou ""),
+Sugestões do dono (`suggestions/<id>` no painel): `text, format ("" | carrossel | imagem única | reels), date ("AAAA-MM-DD" ou ""),
 slot ("08:00" | "12:00" | "18:00" | ""), notes, status (new | creating | used | info | skipped), post_id, reply, created_at`.
 `creating` = o dono clicou em **Criar agora**; o painel dispara a tarefa "Tributalizando · criar post da sugestão"
 (trig_01VXbeVdJrkYmZXa6zjnSmeV), que segue a Rotina C.
@@ -72,8 +72,13 @@ a publicação, no minuto 00 de cada hora.
 4. Escreva cada `spec.json` (veja exemplos em `queue/`): campos `title, format, scheduled_at, sources, caption, slides`.
    - Linguagem simples, frases curtas, sem juridiquês; a norma vai no campo `note` das lâminas ("Base:").
    - Legenda: gancho na 1ª linha, explicação curta, 2 a 4 linhas com emoji de marcador (📌📅⚠️), CTA
-     (salvar, enviar, comentar), "Base: ...", "Conteúdo informativo; cada caso merece análise individual.",
+     (salvar, enviar, comentar), **gancho para seguir** (obrigatório, ver abaixo), "Base: ...", "Conteúdo informativo; cada caso merece análise individual.",
      5 a 8 hashtags. Máximo 2.200 caracteres.
+   - **Gancho para seguir, sempre no final** (pedido do dono): toda legenda fecha o CTA com uma linha
+     "👉 Siga @tributalizando ..." que dê um motivo ligado ao tema (ex.: "pra não perder o prazo da DeCripto",
+     "amanhã tem a parte 2", "todo dia, imposto de cripto sem juridiquês"). A última lâmina (`cta`) e a última
+     cena do Reels também levam "**Siga** @tributalizando"; os geradores acrescentam sozinhos se faltar,
+     mas prefira escrever uma ação com motivo específico em `actions`.
    - Tipos de lâmina: `cover`, `point`, `big`, `checklist`, `cta` (ver docstring de `scripts/render.py`).
      Destaque com `**texto**`. Títulos de até ~6 palavras por linha; corpo de lâmina com no máximo ~45 palavras.
    - Não cite nomes de corretoras como "estrangeiras" sem confirmar; prefira "corretora sediada no exterior".
@@ -91,7 +96,8 @@ a publicação, no minuto 00 de cada hora.
 2. Horário (`scheduled_at`): se a sugestão tiver `date` e `slot` futuros, use-os. Senão, o próximo horário entre
    8h, 12h e 18h (hoje ou amanhã) ainda sem post na fila; se todos de hoje e amanhã estiverem ocupados, use o
    próximo dia livre. O dono pode publicar na hora pelo botão **Publicar agora**.
-3. Formato: o pedido na sugestão; sem pedido, o que servir melhor ao conteúdo.
+3. Formato: o pedido na sugestão (`carrossel`, `imagem única` ou `reels`; para `reels` siga a seção "Reels animados");
+   sem pedido, o que servir melhor ao conteúdo.
 4. Na sugestão grave `status: "used"`, `post_id` e um `reply` curto; no post, `suggestion_id`. Sem fonte
    confirmável ou ideia vaga: `status: "info"` com `reply` dizendo o que falta. Sempre com `if_version`.
 5. Acrescente a pauta em `pautas.md` e faça commit.
@@ -103,9 +109,10 @@ Tipos: Inter Display (títulos, 800–900), Inter (texto), Lora itálico (citaç
 (quadrado arredondado com "T" dourado e moeda). Wordmark "tributa**lizando**" com "lizando" em dourado.
 Artes 1080×1350 (4:5), JPEG. Não use fotos de pessoas reais nem logos de corretoras.
 
-## Reels animados (estrutura pronta, AINDA NÃO ATIVA na Rotina B)
+## Reels animados (ativo quando pedido; ainda NÃO entra sozinho no lote da Rotina B)
 
-Só gere Reels quando o dono pedir ou depois que esta seção for marcada como ativa.
+Gere Reels quando o dono pedir, inclusive por sugestão com `format: "reels"` (Rotinas B e C).
+Por conta própria, não, até que esta seção diga que Reels entram na variação de formatos da Rotina B.
 - Gerador: `python3 scripts/render_video.py queue/<pasta>/spec.json` → `video.mp4` (1080×1920, 30 fps,
   H.264 + AAC, trilha sintetizada própria), `cover.jpg` e `post.json` com `format: "reels"`, `video`, `cover`.
 - Spec: campos de sempre + `scenes` (tipos `hook`, `point`, `big`, `checklist`, `cta`; ver docstring do script).

@@ -195,7 +195,9 @@ def scene_html(s, i):
         w, at = words(s["title"], at); parts.append(f"<h2>{w}</h2>")
         if s.get("body"):
             parts.append(f'<div class="quote a" data-in="{at + 0.2:.2f}">{md(s["body"])}</div>'); at += 0.3
-        acts = s.get("actions", [["1", "**Salve** para consultar depois"], ["2", "**Envie** para quem opera cripto"], ["3", "**Siga** @tributalizando"]])
+        acts = [list(a) for a in s.get("actions", [["1", "**Salve** para consultar depois"], ["2", "**Envie** para quem opera cripto"], ["3", "**Siga** @tributalizando"]])]
+        if not any("siga" in str(v).lower() for _, v in acts):  # gancho para seguir sempre no fim
+            acts.append([str(len(acts) + 1), "**Siga** @tributalizando"])
         parts.append('<div class="cta-list">' + "".join(
             f'<div class="a" data-in="{at + 0.3 + k * 0.3:.2f}"><span>{n}</span><div>{md(v)}</div></div>' for k, (n, v) in enumerate(acts)) + "</div>")
     else:
