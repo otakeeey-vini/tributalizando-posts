@@ -5,3 +5,4 @@
 | 2026-11-11 | 08:00 | DeCripto: você precisa entregar? | carrossel |
 | 2026-11-11 | 12:00 | Os R$ 35 mil são de vendas, não de lucro | imagem única |
 | 2026-11-11 | 18:00 | 5 documentos que salvam seu imposto de cripto | carrossel |
+| 2026-11-10 | 12:00 | Split payment: o imposto sai antes de você (sugestão do dono) | carrossel |

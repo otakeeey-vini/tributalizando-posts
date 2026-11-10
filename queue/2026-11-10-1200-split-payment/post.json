@@ -1,0 +1,21 @@
+{
+  "scheduled_at": "2026-11-10T12:00:00-03:00",
+  "caption": "Na reforma tributária, o imposto vai sair do pagamento antes de chegar na sua conta.\n\nÉ o split payment: no Pix, boleto ou TED, o banco separa o IBS e a CBS e manda direto ao Fisco. O vendedor recebe só o valor líquido. Para quem vive do caixa do dia a dia, como o pequeno comerciante e o autônomo com CNPJ, isso muda o fôlego financeiro.\n\n📌 Hoje: o dinheiro todo entra e o imposto é pago depois\n📌 Com o split: a parte do imposto nem passa pelo seu caixa\n⚠️ No modelo simplificado, o que for retido a mais só volta depois da apuração\n📅 Começo previsto: 2º semestre de 2027, opcional e entre empresas\n\nOs valores do carrossel são ilustrativos: o sistema ainda está em testes e as alíquotas finais não estão definidas.\n\nSalve e envie para quem vende com CNPJ. Dúvida? Comenta aqui 👇\n\nBase: EC 132/2023; LC 214/2025, arts. 31 a 35.\nConteúdo informativo; cada caso merece análise individual.\n\n#splitpayment #reformatributaria #ibs #cbs #mei #simplesnacional #empreendedorismo",
+  "title": "Split payment: o imposto sai antes de você",
+  "sources": [
+    "Emenda Constitucional nº 132/2023 (art. 156-A, § 5º)",
+    "Lei Complementar nº 214/2025, arts. 31 a 35 (recolhimento na liquidação financeira)",
+    "Receita Federal, cronograma divulgado à imprensa (set. e out./2026): início facultativo e entre empresas no 2º semestre de 2027"
+  ],
+  "format": "carrossel",
+  "images": [
+    "01.jpg",
+    "02.jpg",
+    "03.jpg",
+    "04.jpg",
+    "05.jpg",
+    "06.jpg",
+    "07.jpg"
+  ],
+  "status": "pending"
+}
