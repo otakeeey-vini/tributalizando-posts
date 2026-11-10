@@ -1,0 +1,53 @@
+name: Publicar no Instagram
+
+on:
+  schedule:
+    # A cada 15 minutos; publica os posts aprovados cujo horário já chegou.
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+    inputs:
+      modo:
+        description: "publicar = processa a fila agora | testar = só confere o token"
+        required: true
+        default: publicar
+        type: choice
+        options: [publicar, testar]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publicar-instagram
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Testar token
+        if: ${{ github.event.inputs.modo == 'testar' }}
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+        run: python scripts/publish.py --check
+
+      - name: Publicar posts aprovados
+        if: ${{ github.event.inputs.modo != 'testar' }}
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+        run: python scripts/publish.py
+
+      - name: Salvar status na fila
+        if: ${{ github.event.inputs.modo != 'testar' }}
+        run: |
+          git config user.name "tributalizando-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add queue
+          git diff --cached --quiet || (git commit -m "Atualiza status dos posts" && git push)
