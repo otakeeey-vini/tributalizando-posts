@@ -1,0 +1,67 @@
+{
+  "title": "Da IN 1.888 para a IN 2.291: o que mudou",
+  "format": "reels",
+  "scheduled_at": "2026-11-12T08:00:00-03:00",
+  "sources": [
+    "IN RFB nº 1.888/2019, arts. 6º, 8º e 10 (revogada pela IN RFB nº 2.291/2025, com efeitos a partir de 01/07/2026)",
+    "IN RFB nº 2.291/2025, arts. 5º, 12, 13 e 19"
+  ],
+  "caption": "A IN 1.888 se aposentou. Vem comigo ver o que mudou com a IN 2.291 👇\n\nDesde 1º de julho de 2026, quem opera cripto fora das corretoras brasileiras informa as operações pela DeCripto, a declaração da IN RFB 2.291/2025. A IN 1.888/2019, que valia desde 2019, foi revogada.\n\n📌 Limite mensal: era R$ 30 mil (IN 1.888, art. 6º, § 1º). Agora é R$ 35 mil (IN 2.291, art. 5º, § 3º). Conta o valor das operações, não o lucro.\n📌 O texto novo cita expressamente corretora sediada no exterior, plataforma descentralizada (DEX) e operação sem intermediário (art. 5º, II).\n📅 Continua igual: prazo no último dia útil do mês seguinte. Operações de outubro vencem em 30/11.\n⚠️ Multas da pessoa física também iguais: R$ 100 por mês de atraso e 1,5% do valor informado errado ou omitido.\n\nSalve e envie para quem ainda fala em \"IN 1.888\" 😉\n👉 Siga @tributalizando pra não perder o prazo da DeCripto.\n\nBase: IN RFB 1.888/2019, arts. 6º, 8º e 10; IN RFB 2.291/2025, arts. 5º, 12, 13 e 19.\nConteúdo informativo; cada caso merece análise individual.\n\n#decripto #criptomoedas #receitafederal #impostoderenda #bitcoin #tributacao #contabilidade",
+  "scenes": [
+    {
+      "type": "hook",
+      "tag": "Atualização",
+      "title": "A IN 1.888 **se aposentou**",
+      "subtitle": "Vem comigo: o que mudou com a IN 2.291, a da DeCripto.",
+      "dur": 4
+    },
+    {
+      "type": "big",
+      "kicker": "Limite mensal",
+      "figure": "R$ 35 mil",
+      "statement": "era **R$ 30 mil** na IN 1.888",
+      "body": "Conta o total das operações no mês, não o lucro.",
+      "note": "IN 1.888, art. 6º, § 1º · IN 2.291, art. 5º, § 3º",
+      "dur": 6
+    },
+    {
+      "type": "point",
+      "n": "2",
+      "title": "Quem entra, **com todas as letras**",
+      "body": "Corretora sediada no exterior\nPlataforma descentralizada (DEX)\nCarteira própria, P2P",
+      "note": "IN 2.291, art. 5º, II",
+      "dur": 6
+    },
+    {
+      "type": "checklist",
+      "title": "O que **não mudou**",
+      "items": [
+        "Prazo: último dia útil do mês seguinte",
+        "Atraso: **R$ 100** por mês",
+        "Erro ou omissão: **1,5%** do valor"
+      ],
+      "note": "IN 1.888, arts. 8º e 10 · IN 2.291, arts. 12 e 13",
+      "dur": 7
+    },
+    {
+      "type": "cta",
+      "title": "Outubro vence em **30/11**",
+      "body": "Separe os extratos de cada corretora e carteira.",
+      "actions": [
+        [
+          "1",
+          "**Salve** para lembrar do prazo"
+        ],
+        [
+          "2",
+          "**Envie** para quem opera lá fora"
+        ],
+        [
+          "3",
+          "**Siga** @tributalizando pra não perder a DeCripto"
+        ]
+      ],
+      "dur": 6
+    }
+  ]
+}

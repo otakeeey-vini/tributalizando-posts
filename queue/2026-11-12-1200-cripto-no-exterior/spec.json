@@ -1,0 +1,63 @@
+{
+  "title": "Cripto em corretora no exterior: a regra é anual",
+  "format": "carrossel",
+  "scheduled_at": "2026-11-12T12:00:00-03:00",
+  "sources": [
+    "Lei nº 14.754/2023, arts. 2º, 3º, 9º e 47",
+    "IN RFB nº 2.291/2025, art. 5º, II e § 3º"
+  ],
+  "caption": "Tem cripto em corretora sediada no exterior? Então o seu imposto não segue a regra mensal das corretoras brasileiras.\n\nDesde 2024, a Lei 14.754/2023 trata ativos virtuais no exterior como aplicação financeira no exterior. O ganho vai para a declaração anual, separado dos demais rendimentos, com alíquota de 15%.\n\n📌 Tributa quando você realiza o ganho (venda ou resgate), não pela simples valorização.\n📌 Perdas comprovadas em aplicações no exterior compensam ganhos do mesmo ano.\n📅 Ganhos de 2026 entram na declaração de 2027.\n⚠️ Isso não dispensa a DeCripto: operou mais de R$ 35 mil no mês lá fora, a entrega mensal continua obrigatória.\n\nSalve para a próxima declaração e envie para quem tem conta em corretora lá fora 👇\n👉 Siga @tributalizando: todo dia, imposto de cripto sem juridiquês.\n\nBase: Lei 14.754/2023, arts. 2º, 3º e 9º; IN RFB 2.291/2025, art. 5º.\nConteúdo informativo; cada caso merece análise individual.\n\n#criptomoedas #impostoderenda #exterior #bitcoin #receitafederal #tributacao #decripto",
+  "slides": [
+    {
+      "type": "cover",
+      "tag": "Exterior",
+      "title": "Cripto em corretora **lá fora** tem outra regra",
+      "subtitle": "O imposto é apurado uma vez por ano. Veja como funciona em 5 pontos."
+    },
+    {
+      "type": "point",
+      "n": "1",
+      "title": "É **aplicação financeira** no exterior",
+      "body": "A Lei 14.754/2023 inclui os **ativos virtuais** mantidos fora do país nessa categoria.\n\nNa prática: cripto em **corretora sediada no exterior**.",
+      "note": "Lei 14.754/2023, art. 3º, § 1º, I"
+    },
+    {
+      "type": "point",
+      "n": "2",
+      "title": "**15%**, uma vez por ano",
+      "body": "O ganho entra **separado** na declaração anual, com alíquota de 15%.\n\nNada de DARF mensal para esse ganho.",
+      "note": "Lei 14.754/2023, art. 2º, caput e § 1º"
+    },
+    {
+      "type": "point",
+      "n": "3",
+      "title": "Só paga quando **realiza**",
+      "body": "O rendimento é tributado quando **efetivamente recebido**: na venda ou no resgate.\n\nValorização parada na conta não gera imposto.",
+      "note": "Lei 14.754/2023, art. 3º, § 2º"
+    },
+    {
+      "type": "point",
+      "n": "4",
+      "title": "Perdeu? **Pode compensar**",
+      "body": "Perdas comprovadas em aplicações no exterior abatem os ganhos do **mesmo ano**.\n\nPor isso, guarde o extrato de cada operação.",
+      "note": "Lei 14.754/2023, art. 9º"
+    },
+    {
+      "type": "point",
+      "n": "5",
+      "title": "A **DeCripto** continua valendo",
+      "body": "Operou mais de **R$ 35 mil** no mês em corretora no exterior? A entrega mensal é obrigatória, até o último dia útil do mês seguinte.",
+      "note": "IN RFB 2.291/2025, art. 5º, II e § 3º; art. 12"
+    },
+    {
+      "type": "cta",
+      "title": "Tem cripto **lá fora**?",
+      "body": "Guarde data, valor em reais e taxa de cada operação. É isso que sustenta a declaração.",
+      "actions": [
+        ["1", "**Salve** para a declaração de 2027"],
+        ["2", "**Envie** para quem opera lá fora"],
+        ["3", "**Siga** @tributalizando: imposto de cripto sem juridiquês"]
+      ]
+    }
+  ]
+}

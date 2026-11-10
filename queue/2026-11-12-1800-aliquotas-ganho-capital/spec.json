@@ -1,0 +1,20 @@
+{
+  "title": "15% para quase todo mundo: as faixas do ganho de capital",
+  "format": "imagem única",
+  "scheduled_at": "2026-11-12T18:00:00-03:00",
+  "sources": [
+    "Lei nº 8.981/1995, art. 21, I a IV (redação da Lei nº 13.259/2016)",
+    "Lei nº 9.250/1995, art. 22"
+  ],
+  "caption": "\"Imposto de cripto é 15%.\" Quase sempre é. Mas a alíquota é progressiva, por faixas.\n\nQuando você vende cripto com lucro acima da isenção mensal (vendas de até R$ 35 mil no mês), o ganho de capital é tributado assim:\n\n📌 15% sobre a parte do ganho até R$ 5 milhões\n📌 17,5% sobre a parte entre R$ 5 milhões e R$ 10 milhões\n📌 20% sobre a parte entre R$ 10 milhões e R$ 30 milhões\n📌 22,5% sobre a parte acima de R$ 30 milhões\n\n⚠️ Cada alíquota incide só sobre a parcela que passa do limite. Exemplo: ganho de R$ 6 milhões = 15% de R$ 5 milhões + 17,5% de R$ 1 milhão.\n\nIsso vale para o ganho de capital (DARF 4600). Cripto em corretora no exterior segue outra regra: 15% na declaração anual.\n\nSalve e marque quem acha que a alíquota é sempre a mesma 👇\n👉 Siga @tributalizando: todo dia, imposto de cripto sem juridiquês.\n\nBase: Lei 8.981/1995, art. 21 (redação da Lei 13.259/2016); Lei 9.250/1995, art. 22.\nConteúdo informativo; cada caso merece análise individual.\n\n#criptomoedas #impostoderenda #ganhodecapital #bitcoin #receitafederal #tributacao",
+  "slides": [
+    {
+      "type": "big",
+      "kicker": "Ganho de capital",
+      "figure": "15%",
+      "statement": "para quase todo mundo. Só o ganho acima de **R$ 5 milhões** paga mais.",
+      "body": "**17,5%** de R$ 5 mi a 10 mi · **20%** de R$ 10 mi a 30 mi · **22,5%** acima. Cada faixa vale só para a parte que passa do limite.",
+      "note": "Lei 8.981/1995, art. 21, I a IV (redação da Lei 13.259/2016)"
+    }
+  ]
+}
