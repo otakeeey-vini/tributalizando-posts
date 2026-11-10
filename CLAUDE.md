@@ -16,6 +16,8 @@ falando em linguagem simples. 3 posts por dia: **8h, 12h e 18h** (horário de Br
 Documento no painel (`posts/<pasta>`): `title, format, scheduled_at, caption, sources[], images[] ("/_blob/<id>"),
 asset_ids[], status (pending|approved|discarded|published|error), queued (bool), error, media_id, created_at, updated_at`.
 O id do documento é igual ao nome da pasta na fila. Post feito a partir de sugestão leva também `suggestion_id`.
+`publish_now: true` = o dono clicou em **Publicar agora** no painel; o painel dispara a tarefa agendada
+"Tributalizando · publicar agora" (trig_01QeinJVxUXpyxPkTYctGXWB), que leva o post à fila e publica na hora.
 
 Sugestões do dono (`suggestions/<id>` no painel): `text, format ("" | carrossel | imagem única), date ("AAAA-MM-DD" ou ""),
 slot ("08:00" | "12:00" | "18:00" | ""), notes, status (new | used | info | skipped), post_id, reply, created_at`.
