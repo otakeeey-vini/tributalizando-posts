@@ -53,6 +53,8 @@ a publicação, no minuto 00 de cada hora.
 8. Gravações: se algum documento tiver `voice_status: "uploaded"` (o disparo da Rotina D pode ter falhado),
    execute a Rotina D para ele **antes** do passo 5. Reels com `narration_mode: "propria"` e `voice_status`
    diferente de `done` não são publicados (o `publish.py` pula); se o horário vencer assim, avise o dono por notificação.
+9. Posts movidos para Gravar: se algum documento tiver `prep_record: true` (o disparo da Rotina E pode ter
+   falhado), execute a Rotina E para ele.
 
 ## Rotina D · Processar gravação do dono (disparada pelo painel ao enviar o áudio)
 
