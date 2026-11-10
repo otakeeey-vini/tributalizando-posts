@@ -8,7 +8,8 @@ Saída: queue/<pasta>/video.mp4, queue/<pasta>/cover.jpg e atualiza post.json
 Spec: mesmos campos dos posts (title, scheduled_at, caption, sources) + "scenes":
   hook       tag, title, subtitle
   point      n, title, body (linhas separadas por \\n)
-  big        kicker, figure (o 1º número conta de 0 até o valor), statement, body
+  big        kicker, figure (o 1º número conta de 0 até o valor), statement, body,
+             compare (opcional: [[rótulo, valor exibido, número], ...] vira barras; a última fica dourada)
   checklist  title, items[]
   cta        title, body
   Campo opcional "dur" (segundos) em cada cena; sem ele a duração sai do tamanho do texto.
@@ -50,7 +51,11 @@ body {{ font-family: Inter; -webkit-font-smoothing: antialiased; color: #F6F1E6;
 .scene.light {{ background: #F6F1E6; color: #13221C; }}
 em {{ font-style: normal; }}
 .dark em {{ color: #E8B931; }}
-.light em {{ color: #0E3B2E; background: linear-gradient(transparent 62%, #E8B93199 62%); }}
+.light em {{ color: #0E3B2E; font-weight: 700; padding: .02em .16em; margin: 0 -.06em; border-radius: .16em;
+  background: #E8B931;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone; }}
+.light h1 em, .light h2 em {{ font-weight: inherit; padding: 0 .14em; margin: 0 -.14em; border-radius: .1em; }}
+.light .w:has(em) {{ position: relative; z-index: 0; }}
 .a {{ opacity: 0; will-change: transform, opacity; }}
 .tag {{ align-self: flex-start; font-weight: 700; font-size: 34px; letter-spacing: 4px; text-transform: uppercase;
   padding: 16px 28px; border-radius: 999px; border: 3px solid currentColor; margin-bottom: 56px; }}
@@ -76,9 +81,15 @@ h2 {{ font-family: Display; font-weight: 800; font-size: 96px; line-height: 1.04
 .note b {{ font-weight: 700; }}
 .quote {{ font-family: Lora; font-style: italic; font-size: 54px; line-height: 1.4; opacity: .92; margin-bottom: 50px; }}
 .cta-list {{ display: grid; gap: 30px; }}
-.cta-list div {{ font-size: 54px; display: flex; gap: 28px; align-items: center; }}
+.cta-list > div {{ font-size: 54px; display: flex; gap: 28px; align-items: center; }}
 .cta-list span {{ width: 84px; height: 84px; border-radius: 22px; background: #E8B931; color: #0E3B2E; display: grid; place-items: center;
   font-family: Display; font-weight: 900; font-size: 44px; flex: none; }}
+.cmp {{ display: grid; gap: 30px; margin-top: 10px; }}
+.cmp .lab {{ display: flex; justify-content: space-between; font-size: 40px; font-weight: 600; margin-bottom: 12px; opacity: .92; }}
+.cmp .lab b {{ font-family: Display; font-weight: 900; font-size: 46px; }}
+.cmp .track {{ height: 44px; border-radius: 12px; background: #F6F1E61f; overflow: hidden; }}
+.cmp .fill {{ height: 100%; width: 0; border-radius: 12px; background: #F6F1E6a6; }}
+.cmp .row:last-child .fill {{ background: #E8B931; }} .cmp .row:last-child .lab b {{ color: #E8B931; }}
 #chrome {{ position: absolute; inset: 0; pointer-events: none; }}
 .brand {{ position: absolute; left: 90px; top: 200px; display: flex; align-items: center; gap: 20px; font-family: Display; font-weight: 800; font-size: 42px; letter-spacing: -.5px; }}
 .brand svg {{ width: 72px; height: 72px; }}
@@ -118,6 +129,10 @@ function setTime(t) {
       const p = ease((local - parseFloat(a.dataset.in)) / 0.5);
       a.style.opacity = p; a.style.transform = `translateY(${(1 - p) * 50}px)`;
     });
+    el.querySelectorAll('.fill').forEach(f => {
+      const p = ease((local - parseFloat(f.dataset.in)) / 0.9);
+      f.style.width = (parseFloat(f.dataset.w) * p) + '%';
+    });
     el.querySelectorAll('[data-count]').forEach(c => {
       const target = parseFloat(c.dataset.count), dec = c.dataset.dec === '1';
       const p = ease((local - parseFloat(c.dataset.in)) / 1.1);
@@ -142,7 +157,10 @@ def words(text, start, step=0.07):
         if not part:
             continue
         hl = part.startswith("**")
-        for w in (part[2:-2] if hl else part).split():
+        ws = (part[2:-2] if hl else part).split()
+        if not hl and ws and out and not part[0].isspace():  # pontuação colada ao destaque ("**11,3%**:")
+            out[-1] = out[-1][:-len("</span>")] + html.escape(ws.pop(0)) + "</span>"
+        for w in ws:
             inner = f"<em>{html.escape(w)}</em>" if hl else html.escape(w)
             out.append(f'<span class="w a" data-in="{t:.2f}">{inner}</span>')
             t += step
@@ -186,6 +204,12 @@ def scene_html(s, i):
         parts.append(f'<div class="statement a" data-in="{at + 1.2:.2f}">{md(s["statement"])}</div>')
         if s.get("body"):
             parts.append(f'<div class="body"><p class="a" data-in="{at + 1.8:.2f}">{md(s["body"])}</p></div>')
+        if s.get("compare"):  # barras comparativas: [[rótulo, valor exibido, número], ...]
+            top = max(float(c[2]) for c in s["compare"])
+            rows = "".join(f'<div class="row a" data-in="{at + 1.8 + k * 0.4:.2f}"><div class="lab"><span>{md(c[0])}</span><b>{html.escape(c[1])}</b></div>'
+                           f'<div class="track"><div class="fill" data-in="{at + 2.0 + k * 0.4:.2f}" data-w="{float(c[2]) / top * 100:.1f}"></div></div></div>'
+                           for k, c in enumerate(s["compare"]))
+            parts.append(f'<div class="cmp">{rows}</div>')
     elif t == "checklist":
         w, at = words(s["title"], at); parts.append(f"<h2>{w}</h2>")
         lis = "".join(f'<li class="a" data-in="{at + 0.3 + k * 0.45:.2f}"><div class="box">{CHECK}</div><div>{md(x)}</div></li>'
@@ -272,13 +296,40 @@ def render(spec_path):
     scenes = spec["scenes"]
     tl = timeline(scenes)
     total = tl[-1]["end"]
+    doc = build_doc(scenes)
+    _render_files(spec, folder, tl, total, doc)
+
+
+def build_doc(scenes):
     bars = "".join("<div><i></i></div>" for _ in scenes)
-    doc = (f'<!doctype html><html><head><meta charset="utf-8"><style>{CSS}</style></head><body>'
+    return (f'<!doctype html><html><head><meta charset="utf-8"><style>{CSS}</style></head><body>'
            f'<div id="ring"></div>{"".join(scene_html(s, i) for i, s in enumerate(scenes))}'
            f'<div id="chrome"><div class="bars">{bars}</div>'
            f'<div class="brand">{LOGO}<span>tributa<span class="b2">lizando</span></span></div>'
            f'<div class="handle">@tributalizando</div></div>'
            f'<script>{JS}</script></body></html>')
+
+
+def preview(spec_path, times, out_dir):
+    """Salva quadros (JPEG) nos instantes pedidos, para conferir as cenas sem gerar o vídeo."""
+    spec = json.loads(Path(spec_path).read_text(encoding="utf-8"))
+    tl = timeline(spec["scenes"])
+    out_dir = Path(out_dir); out_dir.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory() as tmp:
+        f = Path(tmp) / "reel.html"; f.write_text(build_doc(spec["scenes"]), encoding="utf-8")
+        with sync_playwright() as p:
+            browser = p.chromium.launch(executable_path="/usr/bin/google-chrome", args=["--allow-file-access-from-files"])
+            page = browser.new_page(viewport={"width": W, "height": H}, device_scale_factor=1)
+            page.goto(f.as_uri()); page.evaluate("document.fonts.ready"); page.evaluate(f"setup({json.dumps(tl)})")
+            if not times:  # fim de cada cena, com tudo já animado
+                times = [s["end"] - 0.45 for s in tl]
+            for k, t in enumerate(times):
+                page.evaluate(f"setTime({t})"); page.screenshot(path=str(out_dir / f"frame{k:02d}.jpg"), type="jpeg", quality=88)
+            browser.close()
+
+
+def _render_files(spec, folder, tl, total, doc):
+    scenes = spec["scenes"]
     with tempfile.TemporaryDirectory() as tmp:
         tmp = Path(tmp)
         page_file = tmp / "reel.html"
@@ -317,5 +368,8 @@ def render(spec_path):
 
 
 if __name__ == "__main__":
+    if sys.argv[1:2] == ["--preview"]:  # python3 scripts/render_video.py --preview spec.json pasta_saida [t1 t2 ...]
+        preview(sys.argv[2], [float(x) for x in sys.argv[4:]], sys.argv[3])
+        sys.exit()
     for a in sys.argv[1:]:
         render(a)

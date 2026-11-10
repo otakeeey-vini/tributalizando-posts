@@ -1,0 +1,80 @@
+{
+  "title": "CBS de 11,3%: o que já foi decidido e o que falta",
+  "format": "reels",
+  "scheduled_at": "2026-11-12T08:00:00-03:00",
+  "sources": [
+    "https://www12.senado.leg.br/noticias/materias/2026/10/28/reforma-tributaria-tcu-calcula-aliquota-da-cbs-em-11-3-para-2027",
+    "https://www12.senado.leg.br/noticias/materias/2026/11/03/senado-deve-receber-calculo-da-cbs-na-proxima-terca-para-definir-aliquota",
+    "https://cbic.org.br/senado-abre-discussao-sobre-aliquota-de-113-da-cbs-e-relator-questiona-calculo-do-tcu/",
+    "https://www.migalhas.com.br/amp/quentes/467804/entidades-pedem-adiamento-da-reforma-tributaria-para-2028",
+    "LC 214/2025, art. 349, § 1º, II, e § 2º (resolução do Senado; se passar de 22/12, vale o cálculo do TCU) e art. 353, § 2º (prazos de 2026 estendidos em 45 dias: Senado até 15/12)"
+  ],
+  "caption": "11,3%. Esse é o número que o TCU calculou para a CBS em 2027. Mas ainda não é o fim da história.\n\nA CBS é a nova contribuição federal sobre o consumo e vai substituir o PIS e a Cofins a partir de 2027. Em 28/10, o TCU calculou a alíquota de referência em 11,3%, acima da estimativa de cerca de 9,21% usada antes. Agora a bola está com o Senado.\n\n📌 O Senado fixa a alíquota por resolução, com prazo até 15/12. Se passar de 22/12 sem decisão, vale o número do TCU.\n📌 O relator, senador Eduardo Braga, questiona o cálculo, e a CAE debate o tema em audiência pública.\n⚠️ 27 entidades pediram, em carta aberta divulgada em 04/11, que a cobrança efetiva da CBS comece só em 2028. Por enquanto é só um pedido: a regra continua 2027.\n📅 Para quem tem cripto: a CBS é tributo sobre consumo. Não muda o IR sobre ganho de capital na venda de cripto pela pessoa física, nem a DeCripto.\n\nSalve este post e envie para quem tem empresa 😉\n👉 Siga @tributalizando pra acompanhar a votação da alíquota no Senado até dezembro.\n\nBase: LC 214/2025, arts. 349 e 353; cálculo do TCU de 28/10/2026.\nConteúdo informativo; cada caso merece análise individual.\n\n#reformatributaria #cbs #tributacao #impostos #contabilidade #senado #criptomoedas",
+  "scenes": [
+    {
+      "type": "hook",
+      "tag": "Reforma tributária 2027",
+      "title": "CBS de **11,3%**: o que já foi decidido",
+      "subtitle": "E o que ainda falta o Senado votar",
+      "dur": 4
+    },
+    {
+      "type": "point",
+      "title": "O que é a CBS",
+      "body": "É a nova contribuição federal sobre o consumo. Ela vai substituir o **PIS e a Cofins**.\nA cobrança começa em **2027**, e a transição da reforma vai até 2033.",
+      "note": "LC 214/2025",
+      "dur": 7
+    },
+    {
+      "type": "big",
+      "kicker": "Alíquota de referência 2027",
+      "figure": "11,3%",
+      "statement": "calculada pelo **TCU** em 28/10/2026",
+      "compare": [
+        [
+          "Estimativa anterior",
+          "9,21%",
+          9.21
+        ],
+        [
+          "Cálculo do TCU",
+          "11,3%",
+          11.3
+        ]
+      ],
+      "dur": 7
+    },
+    {
+      "type": "point",
+      "title": "O que falta o Senado decidir",
+      "body": "O Senado fixa a alíquota por **resolução**, até **15/12**. O relator, senador Eduardo Braga, questiona o cálculo, e a CAE debate o tema em audiência pública.\n**Se o Senado não votar, vale o número do TCU.**",
+      "note": "LC 214/2025, art. 349, §§ 1º e 2º, e art. 353, § 2º",
+      "dur": 9
+    },
+    {
+      "type": "point",
+      "title": "O pedido para adiar para 2028",
+      "body": "Em carta aberta (04/11), **27 entidades** pediram que a cobrança efetiva da CBS comece só em **2028**, com 2027 para testes.\nMotivos: alíquota definida tarde e sistema de apuração ainda incompleto.\n**Por enquanto é só um pedido**: a regra continua 2027.",
+      "dur": 9
+    },
+    {
+      "type": "point",
+      "title": "E para quem tem cripto?",
+      "body": "A CBS é tributo sobre **consumo**. Ela não muda o **IR sobre ganho de capital** na venda de cripto pela pessoa física, nem a DeCripto.\nIsso segue igual.",
+      "note": "Lei 8.981/1995, art. 21 · IN RFB 2.291/2025",
+      "dur": 7
+    },
+    {
+      "type": "cta",
+      "title": "Salve e acompanhe",
+      "body": "Salve este post e envie para quem tem empresa.",
+      "actions": [
+        [
+          "→",
+          "**Siga** @tributalizando pra saber a alíquota final assim que o Senado votar"
+        ]
+      ],
+      "dur": 6
+    }
+  ]
+}

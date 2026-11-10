@@ -2,6 +2,7 @@
 
 | Data | Hora | Título | Formato |
 |---|---|---|---|
+| 2026-11-12 | 08:00 | CBS de 11,3%: o que já foi decidido e o que falta (sugestão do dono) | reels |
 | 2026-11-12 | 08:00 | Da IN 1.888 para a IN 2.291: o que mudou (sugestão do dono) | reels |
 | 2026-11-12 | 12:00 | Cripto em corretora no exterior: a regra é anual | carrossel |
 | 2026-11-12 | 18:00 | 15% para quase todo mundo: as faixas do ganho de capital | imagem única |
