@@ -1,0 +1,50 @@
+{
+  "title": "DeCripto: você precisa entregar?",
+  "format": "carrossel",
+  "scheduled_at": "2026-11-11T08:00:00-03:00",
+  "sources": [
+    "IN RFB nº 2.291/2025, arts. 5º, 12, 13, 15 e 19"
+  ],
+  "caption": "Desde julho de 2026, quem opera cripto fora das corretoras brasileiras tem uma obrigação nova: a DeCripto.\n\nEla vale para quem usa corretora sediada no exterior, DEX ou carteira própria/P2P, quando o total das operações no mês passa de R$ 35 mil.\n\n📅 Prazo: último dia útil do mês seguinte. As operações de outubro vencem em 30/11.\n⚠️ Atraso custa R$ 100 por mês, e informação errada ou omitida, 1,5% do valor.\n\nSalve este post e envie para quem opera cripto. Ficou com dúvida se é o seu caso? Comenta aqui 👇\n\nBase: IN RFB nº 2.291/2025.\nConteúdo informativo; cada caso merece análise individual.\n\n#decripto #criptomoedas #impostoderenda #bitcoin #receitafederal #tributacao #contabilidade",
+  "slides": [
+    {
+      "type": "cover",
+      "tag": "DeCripto",
+      "title": "Você opera cripto **fora** de corretora brasileira?",
+      "subtitle": "Desde julho de 2026 existe uma obrigação mensal nova. Veja se ela é sua."
+    },
+    {
+      "type": "point",
+      "n": "1",
+      "title": "Quem precisa **entregar**",
+      "body": "A pessoa física que opera:\n\n• em corretora **sediada no exterior**\n\n• em plataforma **descentralizada** (DEX)\n\n• **sem intermediário**: carteira própria, P2P",
+      "note": "IN RFB 2.291/2025, art. 5º, II"
+    },
+    {
+      "type": "point",
+      "n": "2",
+      "title": "Só acima de **R$ 35 mil** no mês",
+      "body": "A obrigação nasce quando as operações do mês, somadas, passam de R$ 35.000.\n\nAtenção: conta o **valor das operações**, não o lucro.",
+      "note": "IN RFB 2.291/2025, art. 5º, § 3º"
+    },
+    {
+      "type": "point",
+      "n": "3",
+      "title": "Prazo: último dia útil do **mês seguinte**",
+      "body": "Operou em outubro? A entrega vence em **30/11/2026**, até 23h59 (horário de Brasília).",
+      "note": "IN RFB 2.291/2025, art. 12, I e § 1º"
+    },
+    {
+      "type": "point",
+      "n": "4",
+      "title": "Quanto custa **errar**",
+      "body": "**R$ 100 por mês** de atraso (cai pela metade se entregar antes de ser intimado)\n\n**1,5% do valor** informado errado ou omitido\n\n**R$ 500 por mês** se não atender a uma intimação",
+      "note": "IN RFB 2.291/2025, art. 13. Corrigir antes de fiscalização evita a multa (art. 15)"
+    },
+    {
+      "type": "cta",
+      "title": "Ficou na dúvida se **é o seu caso**?",
+      "body": "Organize os extratos de cada corretora e carteira, mês a mês. É o primeiro passo."
+    }
+  ]
+}

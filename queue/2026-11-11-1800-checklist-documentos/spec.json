@@ -1,0 +1,35 @@
+{
+  "title": "5 documentos que salvam seu imposto de cripto",
+  "format": "carrossel",
+  "scheduled_at": "2026-11-11T18:00:00-03:00",
+  "sources": [
+    "IN RFB nº 2.291/2025",
+    "Programa GCAP (Receita Federal)"
+  ],
+  "caption": "Imposto de cripto bem feito começa antes: na organização dos documentos.\n\nSepare estes 5 itens todo mês, para cada corretora e carteira que você usa. Com eles em mãos, fica muito mais fácil calcular o ganho de capital e, se for o seu caso, entregar a DeCripto no prazo.\n\nDica: crie uma pasta por mês e salve tudo lá assim que o mês fechar.\n\nSalve para não esquecer e envie para aquele amigo que opera em várias corretoras 👇\n\nConteúdo informativo; cada caso merece análise individual.\n\n#criptomoedas #impostoderenda #decripto #bitcoin #organizacaofinanceira #contabilidade",
+  "slides": [
+    {
+      "type": "cover",
+      "tag": "Organização",
+      "title": "5 documentos que salvam seu **imposto de cripto**",
+      "subtitle": "Separe todo mês e evite multa e malha fina."
+    },
+    {
+      "type": "checklist",
+      "title": "Separe **todo mês**",
+      "items": [
+        "Extrato de operações de **cada corretora** (CSV ou PDF)",
+        "Depósitos e saques, com **data e valor em reais**",
+        "Endereços das suas **carteiras próprias**",
+        "Operações **P2P e em DEX**, com comprovantes",
+        "**Custo de compra** de cada cripto que você vendeu"
+      ],
+      "note": "Base para o cálculo no GCAP e para a DeCripto (IN RFB 2.291/2025)"
+    },
+    {
+      "type": "cta",
+      "title": "Organização hoje, **tranquilidade** na declaração",
+      "body": "Quem guarda os comprovantes no mês não corre atrás deles no prazo."
+    }
+  ]
+}
