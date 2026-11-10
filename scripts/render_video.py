@@ -14,8 +14,18 @@ Spec: mesmos campos dos posts (title, scheduled_at, caption, sources) + "scenes"
   cta        title, body
   Campo opcional "dur" (segundos) em cada cena; sem ele a duração sai do tamanho do texto.
   Campo opcional "note" (base legal) em point/big/checklist.
+  Campo opcional "speech" (fala da narração) em cada cena.
 Marcação: **texto** = destaque dourado.
 A trilha é sintetizada aqui mesmo (sem direitos de terceiros).
+
+Narração (voz sintética): no spec, "narration": "sintetica" e "speech" nas cenas.
+  Cada fala é gerada por TTS local, entra 0,35 s depois do corte da cena e a trilha baixa
+  (ducking) enquanto a voz fala. Se a fala for maior que a cena, a cena estica para caber.
+  Motor: Piper (voz neural) se houver modelo .onnx em brand/voices/ ou em TRIBUTA_PIPER_VOICE;
+  senão espeak-ng com voz MBROLA brasileira (TRIBUTA_ESPEAK_VOICE, padrão mb-br3; sem MBROLA, pt-br).
+  Dependências do fallback: apt-get install espeak-ng mbrola mbrola-br3
+  "paga" e "propria" ainda não estão implementadas: caem na sintética, com aviso.
+  O post.json recebe "narration": [{"shows", "text"}] e "narration_engine".
 """
 import html
 import json
@@ -168,7 +178,7 @@ def words(text, start, step=0.07):
 
 
 def count_words(s):
-    txt = " ".join(str(v) for k, v in s.items() if k not in ("type", "dur", "n") and isinstance(v, str))
+    txt = " ".join(str(v) for k, v in s.items() if k not in ("type", "dur", "n", "speech") and isinstance(v, str))
     txt += " ".join(s.get("items", []))
     return len(re.sub(r"\*", "", txt).split())
 
@@ -231,20 +241,99 @@ def scene_html(s, i):
     return f'<section class="scene {theme}" id="s{i}">{"".join(parts)}</section>'
 
 
-def timeline(scenes):
+VOICE_IN = 0.35   # a fala começa este tanto depois do corte
+VOICE_TAIL = 0.6  # respiro depois da fala antes do próximo corte
+SR = 44100
+
+
+def timeline(scenes, voice_lens=None):
     out, t = [], 0.0
-    for s in scenes:
+    for k, s in enumerate(scenes):
         d = s.get("dur") or max(3.5, min(8.0, 2.0 + count_words(s) * 0.33))
         if s["type"] == "cta":
             d = max(d, 4.5)
+        if voice_lens and voice_lens[k]:
+            d = max(d, VOICE_IN + voice_lens[k] + VOICE_TAIL)
         out.append({"start": round(t, 3), "end": round(t + d, 3)})
         t += d
     return out
 
 
-def soundtrack(path, total, cuts):
-    """Trilha leve sintetizada: pad Am–F–C–G, batida suave e 'whoosh' nas trocas de cena."""
-    sr = 44100
+def speakable(text):
+    """Ajustes mínimos para a voz: tira marcação e lê símbolos como se fala."""
+    t = re.sub(r"\*\*(.+?)\*\*", r"\1", text)
+    t = re.sub(r"(\d),(\d)", r"\1 vírgula \2", t)
+    t = t.replace("%", " por cento").replace("R$", "").replace("@", "")
+    t = re.sub(r"\s+", " ", t).strip()
+    return t
+
+
+def _piper_model():
+    import os
+    env = os.environ.get("TRIBUTA_PIPER_VOICE")
+    if env and Path(env).exists():
+        return Path(env)
+    found = sorted((ROOT / "brand" / "voices").glob("*.onnx")) if (ROOT / "brand" / "voices").exists() else []
+    return found[0] if found else None
+
+
+def _read_wav(path):
+    with wave.open(str(path), "rb") as w:
+        sr, ch, sw = w.getframerate(), w.getnchannels(), w.getsampwidth()
+        raw = w.readframes(w.getnframes())
+    a = np.frombuffer(raw, dtype=np.int16).astype(np.float64) / 32768
+    if ch > 1:
+        a = a.reshape(-1, ch).mean(axis=1)
+    if sr != SR:  # reamostra por interpolação linear
+        n = int(len(a) * SR / sr)
+        a = np.interp(np.linspace(0, len(a) - 1, n), np.arange(len(a)), a)
+    return a
+
+
+def _trim(a, thr=0.01):
+    idx = np.where(np.abs(a) > thr)[0]
+    return a[max(0, idx[0] - 400): idx[-1] + 800] if len(idx) else a[:0]
+
+
+def tts(texts, tmp):
+    """Gera a fala de cada cena. Devolve (lista de arrays float a 44,1 kHz ou None, nome do motor)."""
+    import os
+    import shutil
+    model = _piper_model()
+    out, engine = [], None
+    voice = None
+    if model:
+        try:
+            from piper import PiperVoice
+            voice = PiperVoice.load(str(model))
+            engine = f"piper:{model.stem}"
+        except Exception as e:  # sem piper instalado: cai no espeak
+            print(f"aviso: Piper indisponível ({e}); usando espeak-ng")
+    if voice is None:
+        if not shutil.which("espeak-ng"):
+            raise RuntimeError("narração pedida, mas não há motor de voz: instale espeak-ng (e mbrola-br3) ou um modelo Piper")
+        ev = os.environ.get("TRIBUTA_ESPEAK_VOICE", "mb-br3")
+        if ev.startswith("mb-") and not Path(f"/usr/share/mbrola/{ev[3:]}").exists():
+            ev = "pt-br"
+        engine = f"espeak-ng:{ev}"
+    for k, text in enumerate(texts):
+        if not text or not text.strip():
+            out.append(None)
+            continue
+        f = Path(tmp) / f"voz{k:02d}.wav"
+        if voice is not None:
+            with wave.open(str(f), "wb") as w:
+                voice.synthesize_wav(speakable(text), w)
+        else:
+            subprocess.run(["espeak-ng", "-v", ev, "-s", "160", "-g", "4", "-w", str(f), speakable(text)], check=True)
+        out.append(_trim(_read_wav(f)))
+    return out, engine
+
+
+def soundtrack(path, total, cuts, voices=None):
+    """Trilha leve sintetizada: pad Am–F–C–G, batida suave e 'whoosh' nas trocas de cena.
+    voices: [(início em s, array da fala)] — mixa a narração por cima, com a trilha baixando sob a voz."""
+    sr = SR
     n = int(total * sr)
     t = np.arange(n) / sr
     bpm, beat = 92, 60 / 92
@@ -284,6 +373,19 @@ def soundtrack(path, total, cuts):
     fade = np.minimum(1, t / 0.6) * np.minimum(1, (total - t) / 1.2)
     mix *= fade
     mix = mix / (np.max(np.abs(mix)) + 1e-9) * 0.55
+    if voices:
+        vo = np.zeros(n)
+        duck = np.zeros(n)
+        for start, a in voices:
+            i = int(start * sr); ln = min(len(a), n - i)
+            if ln <= 0:
+                continue
+            vo[i:i + ln] += a[:ln] / (np.max(np.abs(a)) + 1e-9) * 0.9
+            duck[max(0, i - int(0.2 * sr)): i + ln + int(0.3 * sr)] = 1
+        k = int(0.25 * sr)  # suaviza a entrada/saída do ducking
+        duck = np.convolve(duck, np.ones(k) / k, mode="same")
+        mix = mix * (1 - 0.72 * duck) + vo
+        mix = mix / max(1.0, np.max(np.abs(mix)) / 0.95)
     pcm = (mix * 32767).astype(np.int16)
     with wave.open(str(path), "wb") as w:
         w.setnchannels(1); w.setsampwidth(2); w.setframerate(sr); w.writeframes(pcm.tobytes())
@@ -294,10 +396,24 @@ def render(spec_path):
     folder = spec_path.parent
     spec = json.loads(spec_path.read_text(encoding="utf-8"))
     scenes = spec["scenes"]
-    tl = timeline(scenes)
+    mode = spec.get("narration", "nenhuma")
+    if isinstance(mode, list):  # narração já no formato do post.json: [{shows, text}]
+        for s, nar in zip(scenes, mode):
+            s["speech"] = nar.get("text", "")
+        mode = "sintetica"
+    voices, engine = None, None
+    if mode and mode != "nenhuma" and any((s.get("speech") or "").strip() for s in scenes):
+        if mode != "sintetica":
+            print(f"aviso: narração '{mode}' ainda não implementada; usando voz sintética")
+        with tempfile.TemporaryDirectory() as vt:
+            voices, engine = tts([s.get("speech", "") for s in scenes], vt)
+    elif mode and mode != "nenhuma":
+        print("aviso: narração pedida, mas nenhuma cena tem 'speech'; vídeo sai sem voz")
+    tl = timeline(scenes, [len(v) / SR if v is not None else 0 for v in voices] if voices else None)
     total = tl[-1]["end"]
     doc = build_doc(scenes)
-    _render_files(spec, folder, tl, total, doc)
+    placed = [(tl[k]["start"] + VOICE_IN, v) for k, v in enumerate(voices) if v is not None] if voices else None
+    _render_files(spec, folder, tl, total, doc, placed, engine)
 
 
 def build_doc(scenes):
@@ -328,14 +444,14 @@ def preview(spec_path, times, out_dir):
             browser.close()
 
 
-def _render_files(spec, folder, tl, total, doc):
+def _render_files(spec, folder, tl, total, doc, voices=None, engine=None):
     scenes = spec["scenes"]
     with tempfile.TemporaryDirectory() as tmp:
         tmp = Path(tmp)
         page_file = tmp / "reel.html"
         page_file.write_text(doc, encoding="utf-8")
         audio = tmp / "audio.wav"
-        soundtrack(audio, total, [s["start"] for s in tl[1:]])
+        soundtrack(audio, total, [s["start"] for s in tl[1:]], voices)
         out = folder / "video.mp4"
         ff = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "image2pipe", "-framerate", str(FPS), "-c:v", "mjpeg", "-i", "-",
                                "-i", str(audio), "-c:v", "libx264", "-preset", "veryfast", "-crf", "20", "-pix_fmt", "yuv420p",
@@ -362,9 +478,15 @@ def _render_files(spec, folder, tl, total, doc):
     post = json.loads(post_file.read_text(encoding="utf-8")) if post_file.exists() else {}
     post.update({k: spec[k] for k in ("scheduled_at", "caption", "title", "sources") if k in spec})
     post.update({"format": "reels", "video": "video.mp4", "cover": "cover.jpg", "images": ["cover.jpg"], "duration": round(total, 1)})
+    if voices:
+        post["narration"] = [{"shows": re.sub(r"\*\*", "", s.get("title") or s.get("figure") or s.get("statement") or ""),
+                              "text": s.get("speech", "")} for s in scenes]
+        post["narration_engine"] = engine
+    else:
+        post.pop("narration", None); post.pop("narration_engine", None)
     post.setdefault("status", "pending")
     post_file.write_text(json.dumps(post, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"{folder.name}: Reels de {total:.1f}s")
+    print(f"{folder.name}: Reels de {total:.1f}s" + (f", narração {engine}" if voices else ", sem narração"))
 
 
 if __name__ == "__main__":

@@ -115,8 +115,9 @@ a publicação, no minuto 00 de cada hora.
    sem pedido, o que servir melhor ao conteúdo.
    **Com `draft` aprovado pelo dono, ele manda**: siga formato, tom, ordem e texto das lâminas/cenas, visuais, duração,
    gancho e `owner_notes`. Só mude o que estiver errado na norma ou não couber na arte (texto cortado), e diga o que
-   mudou no `reply`. Narração (`narration` diferente de `nenhuma`): enquanto não estiver implementada (em teste),
-   gere o Reels sem narração e avise no `reply`.
+   mudou no `reply`. Narração `sintetica`: escreva `speech` em **todas** as cenas (se o rascunho veio com falas
+   vazias, escreva-as seguindo a seção "Narração") e gere a voz pelo gerador (ver "Reels animados").
+   `paga` e `propria` ainda não estão implementadas: gere com a voz sintética e avise no `reply`.
 4. Na sugestão grave `status: "used"`, `post_id` e um `reply` curto; no post, `suggestion_id`. Sem fonte
    confirmável ou ideia vaga: `status: "info"` com `reply` dizendo o que falta. Sempre com `if_version`.
 5. Acrescente a pauta em `pautas.md` e faça commit.
@@ -165,6 +166,11 @@ Gere Reels quando o dono pedir, inclusive por sugestão com `format: "reels"` (R
 Por conta própria, não, até que esta seção diga que Reels entram na variação de formatos da Rotina B.
 - Gerador: `python3 scripts/render_video.py queue/<pasta>/spec.json` → `video.mp4` (1080×1920, 30 fps,
   H.264 + AAC, trilha sintetizada própria), `cover.jpg` e `post.json` com `format: "reels"`, `video`, `cover`.
+- Voz sintética: no spec, `"narration": "sintetica"` e `speech` em cada cena. O gerador cria a fala (TTS local),
+  baixa a trilha sob a voz e estica a cena se a fala não couber. Antes de gerar:
+  `apt-get install -y espeak-ng mbrola mbrola-br3` (voz MBROLA brasileira, robótica mas clara). Se houver um
+  modelo Piper (`brand/voices/*.onnx` ou `TRIBUTA_PIPER_VOICE`) e o pacote `piper-tts`, usa a voz neural.
+  O `post.json` sai com `narration: [{shows, text}]` e `narration_engine`; copie os dois para o painel.
 - Spec: campos de sempre + `scenes` (tipos `hook`, `point`, `big`, `checklist`, `cta`; ver docstring do script).
   Ideal 15 a 30 s, 4 a 6 cenas. Área segura: o script já deixa margem para a interface do Instagram.
 - Painel: envie `video.mp4` e `cover.jpg` como assets; no documento grave `video: "/_blob/<id>"`,
