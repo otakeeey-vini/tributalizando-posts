@@ -1,0 +1,66 @@
+{
+  "title": "Checklist da virada: PIS e Cofins saem, CBS entra em 2027",
+  "format": "carrossel",
+  "scheduled_at": "2026-11-14T08:00:00-03:00",
+  "sources": [
+    "EC 132/2023 (transição: extinção de PIS e Cofins em 2027)",
+    "LC 214/2025, art. 344 (IBS de 0,1% em 2027 e 2028, redação da LC 227/2026) e art. 348 (2026 como ano de teste)",
+    "LC 214/2025, art. 378 (saldos credores de PIS/Cofins) e arts. 380 a 382 (crédito presumido sobre estoques)",
+    "Ato Conjunto RFB/CGIBS nº 1/2025, art. 3º; Ato Conjunto RFB/CGIBS nº 4/2026 (cronograma dos documentos fiscais)",
+    "https://online.crcsp.org.br/portal/noticias/noticia.asp?c=11042"
+  ],
+  "caption": "Em 1º de janeiro, o PIS e a Cofins acabam. A CBS passa a ser cobrada de verdade.\n\nEm 2026, a CBS (0,9%) e o IBS (0,1%) foram só teste: quem cumpriu as obrigações acessórias não precisou recolher. Em 2027, a CBS substitui o PIS e a Cofins e vai para o caixa da União. O IBS segue simbólico, em 0,1%.\n\n📌 O saldo credor de PIS/Cofins não se perde: pode compensar CBS, outros tributos federais ou ser ressarcido\n📌 O estoque em 1º/01/2027 gera crédito presumido de CBS\n⚠️ Nota fiscal sem o grupo IBS/CBS ou com classificação errada é o erro que mais aparece\n📅 Até dezembro: cadastro, sistema, preços, contratos e inventário\n\nPassa o checklist do carrossel com seu financeiro e seu contador.\n\nSalve e envie para quem cuida das notas da empresa 👇\n👉 Siga @tributalizando: a reforma tributária explicada sem juridiquês, todo dia.\n\nBase: EC 132/2023; LC 214/2025, arts. 344, 348, 378 a 382.\nConteúdo informativo; cada caso merece análise individual.\n\n#reformatributaria #cbs #ibs #pis #cofins #contabilidade #empresas",
+  "slides": [
+    {
+      "type": "cover",
+      "tag": "Reforma tributária",
+      "title": "2027: PIS e Cofins **saem de cena**",
+      "subtitle": "A CBS começa a ser cobrada de verdade. O checklist até dezembro."
+    },
+    {
+      "type": "point",
+      "n": "1",
+      "title": "O que muda em janeiro",
+      "body": "Em 2026 foi teste: **CBS de 0,9%** e IBS de 0,1%, sem recolher para quem cumpriu as obrigações.\n\nEm 2027, a **CBS substitui PIS e Cofins** e é paga. O IBS fica em **0,1%**.",
+      "note": "EC 132/2023; LC 214/2025, arts. 344 e 348"
+    },
+    {
+      "type": "point",
+      "n": "2",
+      "title": "Crédito antigo **não some**",
+      "body": "O saldo credor de PIS/Cofins pode **compensar CBS**, outros tributos federais ou ser **ressarcido**.\n\nO estoque em 1º/01/2027 gera **crédito presumido** de CBS.",
+      "note": "LC 214/2025, arts. 378 a 382"
+    },
+    {
+      "type": "checklist",
+      "title": "Até **dezembro**",
+      "items": [
+        "Produtos com **CST e cClassTrib** no cadastro",
+        "Sistema emitindo nota com o **grupo IBS/CBS**",
+        "Revisar **preços e contratos** de 2027",
+        "Levantar o **saldo credor** de PIS/Cofins",
+        "Inventário do **estoque** em 31/12"
+      ],
+      "note": "Ato Conjunto RFB/CGIBS 4/2026 (documentos fiscais)"
+    },
+    {
+      "type": "cta",
+      "title": "Janeiro chega **rápido**",
+      "body": "Quem testou em 2026 vira o ano sem susto.",
+      "actions": [
+        [
+          "1",
+          "**Salve** para consultar depois"
+        ],
+        [
+          "2",
+          "**Envie** para quem cuida das notas da empresa"
+        ],
+        [
+          "3",
+          "**Siga** @tributalizando para acompanhar a reforma"
+        ]
+      ]
+    }
+  ]
+}

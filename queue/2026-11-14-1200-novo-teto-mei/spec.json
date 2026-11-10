@@ -1,0 +1,60 @@
+{
+  "title": "Novo MEI: teto de R$ 110 mil em 2027 e R$ 140 mil em 2028",
+  "format": "carrossel",
+  "scheduled_at": "2026-11-14T12:00:00-03:00",
+  "sources": [
+    "Lei Complementar nº 238/2026 (Prospera MEI), sancionada em 21/10/2026",
+    "https://fenacon.org.br/?p=55815",
+    "https://www.legisweb.com.br/noticia/?id=34608"
+  ],
+  "caption": "O MEI vai poder faturar mais: R$ 110 mil em 2027 e R$ 140 mil em 2028.\n\nA Lei Complementar 238/2026, sancionada em 21/10, mudou o limite do MEI, que hoje é de R$ 81 mil por ano, e trouxe um perdão de dívidas federais.\n\n📌 Teto: R$ 110 mil em 2027 e R$ 140 mil em 2028\n📌 Perdão: débitos federais do MEI constituídos até 13/10/2026, com multa e juros, inclusive parcelados ou na Justiça. Começa em 1º/01/2027\n⚠️ Condição: pagar o DAS em dia nos seis primeiros meses. O que já foi pago não volta\n📌 Até dois empregados, com pelo menos um salário mínimo ou o piso da categoria\n📌 Dispensa de nota em vendas para pessoa física: vem por decreto, com condições próprias. Confira a regulamentação antes de deixar de emitir\n📅 Em 2026, o limite ainda é R$ 81 mil\n\nSalve e envie para um MEI 👇\n👉 Siga @tributalizando pra saber quando cada regra do MEI começa a valer.\n\nBase: LC 238/2026.\nConteúdo informativo; cada caso merece análise individual.\n\n#mei #microempreendedor #empreendedorismo #simplesnacional #contabilidade #impostos",
+  "slides": [
+    {
+      "type": "cover",
+      "tag": "MEI",
+      "title": "MEI vai poder faturar **até R$ 140 mil**",
+      "subtitle": "O que muda com a LC 238/2026, e quando."
+    },
+    {
+      "type": "big",
+      "kicker": "Novo teto anual",
+      "figure": "R$ 110 mil",
+      "statement": "em **2027**. Em 2028, **R$ 140 mil**.",
+      "body": "Em 2026, o limite continua R$ 81 mil.",
+      "note": "LC 238/2026 (sancionada em 21/10/2026)"
+    },
+    {
+      "type": "point",
+      "n": "1",
+      "title": "Perdão de dívidas",
+      "body": "Débitos federais do MEI até **13/10/2026**, com multa e juros, inclusive parcelados.\n\nCondição: **DAS em dia** nos 6 primeiros meses. Começa em **1º/01/2027**.",
+      "note": "LC 238/2026. O que já foi pago não é devolvido"
+    },
+    {
+      "type": "point",
+      "n": "2",
+      "title": "Mais mudanças",
+      "body": "Até **2 empregados**, com pelo menos um salário mínimo ou o piso.\n\nDispensa de nota em vendas para **pessoa física**: vem por **decreto**, com condições próprias.",
+      "note": "LC 238/2026; a dispensa de nota depende de decreto"
+    },
+    {
+      "type": "cta",
+      "title": "Planeje 2027 com o **novo teto**",
+      "body": "E mantenha o DAS em dia para ter o perdão.",
+      "actions": [
+        [
+          "1",
+          "**Salve** para consultar depois"
+        ],
+        [
+          "2",
+          "**Envie** para um MEI"
+        ],
+        [
+          "3",
+          "**Siga** @tributalizando para acompanhar as regras do MEI"
+        ]
+      ]
+    }
+  ]
+}

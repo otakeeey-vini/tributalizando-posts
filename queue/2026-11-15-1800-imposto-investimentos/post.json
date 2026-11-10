@@ -1,0 +1,23 @@
+{
+  "scheduled_at": "2026-11-15T18:00:00-03:00",
+  "caption": "Selic em 13,75%. Antes de comparar rendimentos, compare o imposto.\n\nO Copom manteve os juros em 13,75% em 4/11. Com juros altos, a renda fixa chama atenção, mas cada investimento tem uma regra de imposto diferente. E a MP 1.303/2025, que ia mudar isso, perdeu a validade: as regras abaixo seguem valendo.\n\n📌 CDB e Tesouro: de 22,5% a 15% sobre o rendimento, quanto mais tempo, menor\n📌 LCI, LCA, CRI e CRA: isentos para pessoa física\n📌 Ações: ganho isento se as vendas à vista ficarem até R$ 20 mil no mês; acima, 15% (DARF 6015). Dividendos acima de R$ 50 mil/mês por empresa: retenção de 10%\n📌 FIIs: rendimentos isentos se cumpridos os requisitos; lucro na venda das cotas paga 20%\n📌 Cripto: vendas até R$ 35 mil no mês, ganho isento; acima, de 15% a 22,5% (DARF 4600). Em corretora sediada no exterior, 15% na declaração anual\n\nIsto não é recomendação de investimento: é a regra do imposto para você comparar o que sobra no bolso.\n\nSalve e envie para quem está decidindo onde investir 👇\n👉 Siga @tributalizando: todo dia, o imposto dos seus investimentos sem juridiquês.\n\nBase: Lei 11.033/2004; Lei 8.668/1993, art. 18; Lei 9.250/1995, arts. 6º-A e 22; Lei 8.981/1995, art. 21; Lei 14.754/2023.\nConteúdo informativo; cada caso merece análise individual.\n\n#investimentos #impostoderenda #rendafixa #acoes #fii #criptomoedas #selic #tributacao",
+  "title": "Selic em 13,75%: o imposto de cada investimento",
+  "sources": [
+    "Lei nº 11.033/2004, art. 1º (tabela regressiva) e art. 3º, I a IV (isenções: ações até R$ 20 mil/mês, LCI/CRI, FII, LCA/CRA)",
+    "Lei nº 8.668/1993, art. 18 (ganho na venda de cotas de FII)",
+    "Lei nº 9.250/1995, art. 22 (cripto até R$ 35 mil/mês) e art. 6º-A (dividendos, Lei 15.270/2025)",
+    "Lei nº 8.981/1995, art. 21 (ganho de capital) e Lei nº 14.754/2023 (aplicações no exterior)",
+    "https://www.gov.br/receitafederal/pt-br/assuntos/meu-imposto-de-renda/pagamento/renda-variavel/bolsa-de-valores-1/isencoes",
+    "Copom, decisão de 04/11/2026 (Selic mantida em 13,75%)"
+  ],
+  "format": "carrossel",
+  "status": "pending",
+  "images": [
+    "01.jpg",
+    "02.jpg",
+    "03.jpg",
+    "04.jpg",
+    "05.jpg",
+    "06.jpg"
+  ]
+}

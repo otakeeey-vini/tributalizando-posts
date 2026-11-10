@@ -1,0 +1,73 @@
+{
+  "title": "IR zero até R$ 5 mil: no salário já, na declaração em 2027",
+  "format": "reels",
+  "scheduled_at": "2026-11-13T12:00:00-03:00",
+  "narration": "propria",
+  "sources": [
+    "Lei nº 15.270/2025 (efeitos a partir de 01/01/2026)",
+    "Lei nº 9.250/1995, art. 3º-A (redução mensal) e art. 11-A (redução anual), incluídos pela Lei 15.270/2025",
+    "https://www.gov.br/receitafederal/pt-br/assuntos/meu-imposto-de-renda/tabelas/2026",
+    "https://www.gov.br/receitafederal/pt-br/assuntos/noticias/2025/dezembro/receita-federal-orienta-fontes-pagadoras-e-contribuintes-a-calcular-a-reducao-do-imposto-de-renda-a-partir-de-1o-de-janeiro-de-2026"
+  ],
+  "caption": "Ganha até R$ 5 mil por mês? Seu imposto de renda no salário já é zero desde janeiro.\n\nA Lei 15.270/2025 criou uma redução do IR que zera o imposto de quem ganha até R$ 5 mil e diminui aos poucos até R$ 7.350. No contracheque, vale desde janeiro de 2026. Na declaração, a regra anual aparece pela primeira vez em 2027 (ano-calendário 2026).\n\n📌 R$ 5 mil por mês: pagava R$ 312,89, agora paga R$ 0\n📌 R$ 6 mil por mês: o IR cai de R$ 574,29 para R$ 394,54 (exemplo da Receita, com desconto simplificado)\n📌 Acima de R$ 7.350: nada muda\n📅 Declaração 2027: isenção até R$ 60 mil no ano e redução parcial até R$ 88.200\n⚠️ Outra renda (aluguel, segundo emprego) soma na declaração e pode gerar imposto a pagar\n\nSalve e envie para quem ganha até R$ 7.350 👇\n👉 Siga @tributalizando: todo dia, imposto sem juridiquês.\n\nBase: Lei 15.270/2025; Lei 9.250/1995, arts. 3º-A e 11-A.\nConteúdo informativo; cada caso merece análise individual.\n\n#impostoderenda #isencaoir #receitafederal #declaracaodeir #salario #financaspessoais #tributacao",
+  "scenes": [
+    {
+      "type": "hook",
+      "tag": "Imposto de renda",
+      "title": "Ganha até **R$ 5 mil**? Seu IR é zero",
+      "subtitle": "No salário, desde janeiro. Na declaração, só em 2027.",
+      "dur": 5,
+      "speech": "Se você ganha até cinco mil por mês, o imposto sumiu do contracheque. Vem entender por quê."
+    },
+    {
+      "type": "big",
+      "kicker": "Salário de R$ 5 mil",
+      "figure": "R$ 0",
+      "statement": "de IR por mês. Antes: **R$ 312,89**",
+      "body": "Uma redução nova zera o imposto até R$ 5 mil.",
+      "note": "Lei 9.250/1995, art. 3º-A (Lei 15.270/2025)",
+      "dur": 9,
+      "speech": "Quem ganha cinco mil pagava uns trezentos e doze reais por mês. A lei criou um desconto desse tamanho, então o imposto vai a zero. É quase quatro mil reais por ano."
+    },
+    {
+      "type": "big",
+      "kicker": "Salário de R$ 6 mil",
+      "figure": "R$ 180",
+      "statement": "a menos de IR por mês",
+      "body": "Exatos R$ 179,75: de R$ 574,29 para R$ 394,54. Acima de R$ 7.350, nada muda.",
+      "note": "Exemplo da Receita, com desconto simplificado",
+      "dur": 9,
+      "speech": "Ganha um pouco mais? O desconto diminui aos poucos, para não criar um degrau. Com seis mil, são cento e oitenta reais a menos por mês."
+    },
+    {
+      "type": "point",
+      "n": "3",
+      "title": "E a **declaração**?",
+      "body": "Ano de 2026 → declaração de **2027**\nIsenção até **R$ 60 mil** no ano\nRedução parcial até **R$ 88.200**",
+      "note": "Lei 9.250/1995, art. 11-A",
+      "dur": 9,
+      "speech": "Na declaração entregue em dois mil e vinte e sete, vale a conta do ano. Teve aluguel ou um segundo emprego? Tudo soma, e pode sobrar imposto a pagar."
+    },
+    {
+      "type": "cta",
+      "title": "Confira seu **contracheque**",
+      "body": "Guarde os informes de rendimentos para 2027.",
+      "actions": [
+        [
+          "1",
+          "**Salve** para lembrar na declaração"
+        ],
+        [
+          "2",
+          "**Envie** para quem ganha até R$ 7.350"
+        ],
+        [
+          "3",
+          "**Siga** @tributalizando: imposto sem juridiquês"
+        ]
+      ],
+      "dur": 6,
+      "speech": "Confira o contracheque deste mês e siga o perfil para não errar na declaração."
+    }
+  ]
+}

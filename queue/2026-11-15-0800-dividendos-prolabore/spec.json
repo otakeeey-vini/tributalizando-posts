@@ -1,0 +1,67 @@
+{
+  "title": "Pró-labore ou dividendos: a conta mudou em 2026",
+  "format": "carrossel",
+  "scheduled_at": "2026-11-15T08:00:00-03:00",
+  "sources": [
+    "Lei nº 15.270/2025",
+    "Lei nº 9.250/1995, art. 6º-A (retenção de 10% sobre lucros e dividendos acima de R$ 50 mil/mês), art. 16-A (imposto mínimo) e art. 16-B (redutor)",
+    "https://www2.camara.leg.br/legin/fed/lei/2025/lei-15270-26-novembro-2025-798354-publicacaooriginal-177117-pl.html"
+  ],
+  "caption": "Sócio que vive de dividendos: a conta do pró-labore mudou em 2026.\n\nA Lei 15.270/2025 acabou com a isenção total dos dividendos para quem recebe muito. Duas regras novas:\n\n📌 Retenção de 10% na fonte quando a mesma empresa paga mais de R$ 50 mil no mês à mesma pessoa. Incide sobre o total, não só sobre o que passa\n📌 Imposto mínimo: quem soma mais de R$ 600 mil no ano (inclusive rendimentos isentos) paga uma alíquota que sobe até 10%, cheia a partir de R$ 1,2 milhão. O IR já pago e o retido são abatidos\n📌 Trava: se a carga da empresa somada à do sócio passar de 34% (40% ou 45% em financeiras e bancos), o excesso volta pelo redutor\n📅 O imposto mínimo é acertado na declaração de 2027\n⚠️ Lucros de 2025 aprovados dentro do prazo de transição ficam fora\n\nPró-labore paga INSS e IR pela tabela todo mês. Dividendos não têm retenção até R$ 50 mil por mês por empresa, mas entram na conta do imposto mínimo. O melhor mix depende do seu caso.\n\nSalve e envie para um sócio de empresa 👇\n👉 Siga @tributalizando: amanhã tem mais imposto explicado sem juridiquês.\n\nBase: Lei 15.270/2025; Lei 9.250/1995, arts. 6º-A, 16-A e 16-B.\nConteúdo informativo; cada caso merece análise individual.\n\n#dividendos #prolabore #planejamentotributario #impostoderenda #empresarios #contabilidade",
+  "slides": [
+    {
+      "type": "cover",
+      "tag": "Sócios e empresários",
+      "title": "Pró-labore ou dividendos: **a conta mudou**",
+      "subtitle": "Retenção de 10% e imposto mínimo, pela Lei 15.270/2025."
+    },
+    {
+      "type": "big",
+      "kicker": "Desde jan/2026",
+      "figure": "10%",
+      "statement": "sobre **todo** o dividendo acima de **R$ 50 mil** no mês",
+      "body": "Por empresa e por pessoa. Recebeu R$ 60 mil de uma empresa no mês? Retenção de R$ 6 mil.",
+      "note": "Lei 9.250/1995, art. 6º-A"
+    },
+    {
+      "type": "point",
+      "n": "1",
+      "title": "Imposto mínimo",
+      "body": "Quem soma mais de **R$ 600 mil** no ano, inclusive isentos, paga até **10%**, cheio a partir de **R$ 1,2 milhão**.\n\nO IR já pago e o retido são **abatidos**.",
+      "note": "Lei 9.250/1995, art. 16-A (declaração de 2027)"
+    },
+    {
+      "type": "point",
+      "n": "2",
+      "title": "A trava da carga",
+      "body": "Se empresa + sócio passarem de **34%** de carga, o excesso volta pelo **redutor**.\n\nPara financeiras e bancos, a trava é de **40%** ou **45%**.",
+      "note": "Lei 9.250/1995, art. 16-B"
+    },
+    {
+      "type": "point",
+      "n": "3",
+      "title": "Pró-labore x lucros",
+      "body": "**Pró-labore**: INSS e IR pela tabela, todo mês.\n\n**Lucros**: sem retenção até R$ 50 mil/mês por empresa, mas entram no **imposto mínimo**.",
+      "note": "Lei 15.270/2025 (lucros de 2025 aprovados no prazo ficam fora)"
+    },
+    {
+      "type": "cta",
+      "title": "O melhor mix **depende do seu caso**",
+      "body": "Simule com o contador antes de definir 2027.",
+      "actions": [
+        [
+          "1",
+          "**Salve** para consultar depois"
+        ],
+        [
+          "2",
+          "**Envie** para um sócio de empresa"
+        ],
+        [
+          "3",
+          "**Siga** @tributalizando para planejar o IR sem juridiquês"
+        ]
+      ]
+    }
+  ]
+}

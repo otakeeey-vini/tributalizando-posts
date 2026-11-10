@@ -1,0 +1,76 @@
+{
+  "title": "IBS e CBS na nota fiscal: os erros mais comuns",
+  "format": "carrossel",
+  "scheduled_at": "2026-11-15T12:00:00-03:00",
+  "sources": [
+    "Ato Conjunto RFB/CGIBS nº 4/2026 (cronograma: NF-e/NFC-e 03/08/2026; NFS-e 01/10/2026, exceções 01/12/2026; Simples e monofásicos 01/01/2027)",
+    "Ato Conjunto RFB/CGIBS nº 1/2025, art. 3º (dispensa de penalidades até 01/08/2026)",
+    "Nota Técnica 2025.002-RTC (grupo IBSCBS, CST e cClassTrib) e validações em produção desde 05/10/2026",
+    "https://inventti.com.br/ato-conjunto-rfb-cgibs-no-4-2026-define-cronograma-oficial-para-emissao-dos-documentos-fiscais-da-reforma-tributaria/",
+    "https://www.contabeis.com.br/artigos/76943/nf-e-novas-regras-e-cronogramas-para-ibs-e-cbs-em-2026-2027/"
+  ],
+  "caption": "Sua nota fiscal já sai com IBS e CBS? E sai certa?\n\nDesde agosto, NF-e e NFC-e precisam trazer o destaque de IBS e CBS, no novo grupo da nota. Cada item leva o código de situação tributária (CST) e a classificação tributária (cClassTrib).\n\n📅 NF-e e NFC-e: desde 3/8/2026. NFS-e: desde 1/10/2026 (algumas atividades, 1/12). Simples Nacional: 1/1/2027\n📌 Desde 5/10/2026, a Sefaz confere se o CST combina com o cClassTrib\n⚠️ A dispensa formal de multa acabou em 1/8/2026. A Receita disse que não vai multar a CBS em 2026: notifica e dá 60 dias para corrigir. Estados e municípios não entram nessa promessa\n\nOs erros mais comuns estão no carrossel. Quase todos nascem no cadastro do produto, não na hora de emitir.\n\nSalve e envie para quem emite as notas da empresa 👇\n👉 Siga @tributalizando pra acompanhar cada nota técnica da reforma sem juridiquês.\n\nBase: Atos Conjuntos RFB/CGIBS 1/2025 e 4/2026; NT 2025.002-RTC.\nConteúdo informativo; cada caso merece análise individual.\n\n#notafiscal #nfe #reformatributaria #ibs #cbs #contabilidade #fiscal",
+  "slides": [
+    {
+      "type": "cover",
+      "tag": "Notas fiscais",
+      "title": "IBS e CBS na nota: **os erros mais comuns**",
+      "subtitle": "O que já é obrigatório e onde a nota trava."
+    },
+    {
+      "type": "checklist",
+      "title": "Desde **quando**",
+      "items": [
+        "**NF-e e NFC-e**: 3/8/2026",
+        "**NFS-e**: 1/10/2026 (algumas atividades, 1/12)",
+        "**Simples Nacional**: 1/1/2027"
+      ],
+      "note": "Ato Conjunto RFB/CGIBS 4/2026"
+    },
+    {
+      "type": "point",
+      "n": "1",
+      "title": "E a multa?",
+      "body": "A dispensa formal acabou em **1/8/2026**.\n\nA Receita disse que não multa a **CBS** em 2026: notifica e dá **60 dias** para corrigir. Estados e municípios ficam de fora.",
+      "note": "Ato Conjunto RFB/CGIBS 1/2025, art. 3º"
+    },
+    {
+      "type": "point",
+      "n": "2",
+      "title": "O que a nota pede",
+      "body": "Cada item com **CST** e **cClassTrib** de IBS e CBS, no grupo **IBSCBS**.\n\nDesde **5/10/2026**, a Sefaz confere se os dois códigos combinam.",
+      "note": "NT 2025.002-RTC"
+    },
+    {
+      "type": "checklist",
+      "title": "Erros **mais comuns**",
+      "items": [
+        "cClassTrib fora do **cadastro do produto**",
+        "Redução que não combina com a classificação",
+        "IBS estadual e municipal **trocados**",
+        "Totais que não batem com os itens",
+        "Nota sem o **grupo IBSCBS**"
+      ],
+      "note": "NT 2025.002-RTC"
+    },
+    {
+      "type": "cta",
+      "title": "Revise o **cadastro**, não só a nota",
+      "body": "A maioria dos erros nasce na classificação do produto.",
+      "actions": [
+        [
+          "1",
+          "**Salve** para consultar depois"
+        ],
+        [
+          "2",
+          "**Envie** para quem emite as notas"
+        ],
+        [
+          "3",
+          "**Siga** @tributalizando para acompanhar as notas técnicas"
+        ]
+      ]
+    }
+  ]
+}

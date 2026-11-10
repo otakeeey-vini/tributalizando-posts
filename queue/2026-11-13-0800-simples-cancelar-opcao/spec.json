@@ -1,0 +1,72 @@
+{
+  "title": "Simples x IBS/CBS fora do DAS: dá para cancelar até 20/12",
+  "format": "carrossel",
+  "scheduled_at": "2026-11-13T08:00:00-03:00",
+  "sources": [
+    "LC 214/2025 (opção do Simples pelo regime regular de IBS e CBS)",
+    "Resolução CGSN nº 186/2026 (opção no Portal do Simples Nacional, efeitos a partir de 01/01/2027)",
+    "Resolução CGSN nº 194/2026, DOU 28/09/2026: opção até 30/10/2026; cancelamento irretratável de 03/11 a 20/12/2026 (art. 2º, parágrafo único)",
+    "https://online.crcsp.org.br/portal/noticias/noticia.asp?c=11355"
+  ],
+  "caption": "Sua empresa do Simples optou por pagar IBS e CBS fora do DAS? Ainda dá para voltar atrás, mas só até 20/12.\n\nA partir de 2027, a empresa do Simples pode recolher IBS e CBS pelo regime regular, fora da guia única. Quem quis isso para 2027 precisava optar até 30/10/2026, no Portal do Simples Nacional. Agora está aberta a janela para cancelar essa escolha.\n\n📅 Cancelamento: de 3/11 a 20/12/2026 (20/12 cai num domingo, não deixe para o fim)\n⚠️ Irretratável: cancelou, não dá para desfazer. Não cancelou, a opção vale em 2027\n📌 Tende a valer a pena para quem vende para empresas do regime regular, que querem o crédito integral\n📌 Quem vende mais para consumidor final costuma ficar melhor no DAS\n\nFaça a conta com seu contador antes de decidir.\n\nSalve e envie para quem tem empresa no Simples 👇\n👉 Siga @tributalizando pra não perder nenhum prazo da reforma tributária.\n\nBase: LC 214/2025; Resoluções CGSN 186/2026 e 194/2026.\nConteúdo informativo; cada caso merece análise individual.\n\n#simplesnacional #reformatributaria #ibs #cbs #contabilidade #empreendedorismo #pequenasempresas",
+  "slides": [
+    {
+      "type": "cover",
+      "tag": "Simples Nacional",
+      "title": "IBS e CBS fora do DAS? **Dá para cancelar**",
+      "subtitle": "A janela vai até 20/12/2026. Depois, a escolha fica valendo em 2027."
+    },
+    {
+      "type": "point",
+      "n": "1",
+      "title": "Que opção é essa",
+      "body": "A partir de 2027, a empresa do Simples pode recolher **IBS e CBS no regime regular**, fora do DAS.\n\nPara 2027, a opção foi feita até **30/10/2026**, no Portal do Simples.",
+      "note": "LC 214/2025; Resoluções CGSN 186/2026 e 194/2026"
+    },
+    {
+      "type": "big",
+      "kicker": "Janela de cancelamento",
+      "figure": "20/12",
+      "statement": "é o último dia para **cancelar** a opção",
+      "body": "Abriu em 3/11. O cancelamento é **irretratável**: feito, não volta. E 20/12 cai num domingo.",
+      "note": "Resolução CGSN 194/2026, art. 2º, parágrafo único"
+    },
+    {
+      "type": "point",
+      "n": "2",
+      "title": "Quem tende a ganhar",
+      "body": "Quem vende para **empresas do regime regular**: o cliente aproveita o crédito integral de IBS e CBS.\n\nQuem vende mais para **consumidor final** costuma ficar melhor no DAS.",
+      "note": "LC 214/2025 (crédito de IBS e CBS para o cliente)"
+    },
+    {
+      "type": "checklist",
+      "title": "Antes de **decidir**",
+      "items": [
+        "Quanto das vendas vai para **empresas**?",
+        "Seus clientes cobram **crédito** de IBS e CBS?",
+        "Suas compras geram **crédito**?",
+        "Sua rotina dá conta de **apurar à parte**?"
+      ],
+      "note": "Resolução CGSN 194/2026"
+    },
+    {
+      "type": "cta",
+      "title": "Decida com números, **não no chute**",
+      "body": "Sem cancelar, a opção vale para 2027.",
+      "actions": [
+        [
+          "1",
+          "**Salve** para consultar depois"
+        ],
+        [
+          "2",
+          "**Envie** para quem tem empresa no Simples"
+        ],
+        [
+          "3",
+          "**Siga** @tributalizando pra não perder os prazos da reforma"
+        ]
+      ]
+    }
+  ]
+}
