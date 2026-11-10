@@ -16,14 +16,16 @@
       "tag": "Reforma tributária 2027",
       "title": "CBS de **11,3%**: o que já foi decidido",
       "subtitle": "E o que ainda falta o Senado votar",
-      "dur": 4
+      "dur": 4,
+      "speech": "Onze vírgula três por cento. Guarda esse número: ele vai estar no preço de quase tudo."
     },
     {
       "type": "point",
       "title": "O que é a CBS",
       "body": "É a nova contribuição federal sobre o consumo. Ela vai substituir o **PIS e a Cofins**.\nA cobrança começa em **2027**, e a transição da reforma vai até 2033.",
       "note": "LC 214/2025",
-      "dur": 7
+      "dur": 7,
+      "speech": "Sabe o PIS e a Cofins escondidos no preço do que você compra? Em dois mil e vinte e sete, a CBS assume esse papel."
     },
     {
       "type": "big",
@@ -42,27 +44,31 @@
           11.3
         ]
       ],
-      "dur": 7
+      "dur": 7,
+      "speech": "Antes se falava em uns nove por cento. Quando o TCU refez a conta, deu quase dois pontos a mais."
     },
     {
       "type": "point",
       "title": "O que falta o Senado decidir",
       "body": "O Senado fixa a alíquota por **resolução**, até **15/12**. O relator, senador Eduardo Braga, questiona o cálculo, e a CAE debate o tema em audiência pública.\n**Se o Senado não votar, vale o número do TCU.**",
       "note": "LC 214/2025, art. 349, §§ 1º e 2º, e art. 353, § 2º",
-      "dur": 9
+      "dur": 9,
+      "speech": "Agora a bola está com o Senado, que ainda pode mexer nesse número. E se ninguém votar a tempo, fica valendo a conta do TCU."
     },
     {
       "type": "point",
       "title": "O pedido para adiar para 2028",
       "body": "Em carta aberta (04/11), **27 entidades** pediram que a cobrança efetiva da CBS comece só em **2028**, com 2027 para testes.\nMotivos: alíquota definida tarde e sistema de apuração ainda incompleto.\n**Por enquanto é só um pedido**: a regra continua 2027.",
-      "dur": 9
+      "dur": 9,
+      "speech": "Muita empresa diz que não vai dar tempo de ajustar sistema e preço. Mas pedido não é lei: por enquanto, a cobrança continua marcada para dois mil e vinte e sete."
     },
     {
       "type": "point",
       "title": "E para quem tem cripto?",
       "body": "A CBS é tributo sobre **consumo**. Ela não muda o **IR sobre ganho de capital** na venda de cripto pela pessoa física, nem a DeCripto.\nIsso segue igual.",
       "note": "Lei 8.981/1995, art. 21 · IN RFB 2.291/2025",
-      "dur": 7
+      "dur": 7,
+      "speech": "E se você só mexe com cripto? Pode respirar: vendeu com lucro, o imposto continua o mesmo de sempre, o de ganho de capital."
     },
     {
       "type": "cta",
@@ -74,7 +80,9 @@
           "**Siga** @tributalizando pra saber a alíquota final assim que o Senado votar"
         ]
       ],
-      "dur": 6
+      "dur": 6,
+      "speech": "Salva esse vídeo e me segue: quando o Senado bater o martelo, eu te conto aqui."
     }
-  ]
+  ],
+  "narration": "propria"
 }

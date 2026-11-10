@@ -126,6 +126,9 @@ def main():
         when = datetime.fromisoformat(post["scheduled_at"])
         if when > now:
             continue
+        if post.get("narration_mode") == "propria" and post.get("voice_status") != "done":
+            print(f"Aguardando gravação do dono: {folder} (não publicado)")
+            continue
         try:
             media_id = publish(folder, post)
             post.update(status="published", media_id=media_id,

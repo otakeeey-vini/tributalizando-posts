@@ -17,5 +17,44 @@
   ],
   "duration": 49.0,
   "status": "pending",
-  "suggestion_id": "tema-c01-cbs-aliquota"
+  "suggestion_id": "tema-c01-cbs-aliquota",
+  "narration": [
+    {
+      "shows": "CBS de 11,3%: o que já foi decidido",
+      "text": "Onze vírgula três por cento. Guarda esse número: ele vai estar no preço de quase tudo.",
+      "secs": 7.4
+    },
+    {
+      "shows": "O que é a CBS",
+      "text": "Sabe o PIS e a Cofins escondidos no preço do que você compra? Em dois mil e vinte e sete, a CBS assume esse papel.",
+      "secs": 11.0
+    },
+    {
+      "shows": "11,3%",
+      "text": "Antes se falava em uns nove por cento. Quando o TCU refez a conta, deu quase dois pontos a mais.",
+      "secs": 9.0
+    },
+    {
+      "shows": "O que falta o Senado decidir",
+      "text": "Agora a bola está com o Senado, que ainda pode mexer nesse número. E se ninguém votar a tempo, fica valendo a conta do TCU.",
+      "secs": 11.0
+    },
+    {
+      "shows": "O pedido para adiar para 2028",
+      "text": "Muita empresa diz que não vai dar tempo de ajustar sistema e preço. Mas pedido não é lei: por enquanto, a cobrança continua marcada para dois mil e vinte e sete.",
+      "secs": 13.4
+    },
+    {
+      "shows": "E para quem tem cripto?",
+      "text": "E se você só mexe com cripto? Pode respirar: vendeu com lucro, o imposto continua o mesmo de sempre, o de ganho de capital.",
+      "secs": 10.6
+    },
+    {
+      "shows": "Salve e acompanhe",
+      "text": "Salva esse vídeo e me segue: quando o Senado bater o martelo, eu te conto aqui.",
+      "secs": 7.4
+    }
+  ],
+  "narration_mode": "propria",
+  "voice_status": "waiting"
 }

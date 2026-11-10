@@ -15,6 +15,8 @@ falando em linguagem simples. 3 posts por dia: **8h, 12h e 18h** (horário de Br
 
 Documento no painel (`posts/<pasta>`): `title, format, scheduled_at, caption, sources[], images[] ("/_blob/<id>"),
 asset_ids[], status (pending|approved|discarded|published|error), queued (bool), error, media_id, created_at, updated_at`.
+Reels: `video, duration, narration [{shows, text, secs}], narration_mode (nenhuma|sintetica|propria), voice_status
+(waiting|uploaded|processing|done|error), voice {files[], uploaded_at}, voice_error` (ver Rotina D).
 O id do documento é igual ao nome da pasta na fila. Post feito a partir de sugestão leva também `suggestion_id`.
 `publish_now: true` = o dono clicou em **Publicar agora** no painel; o painel dispara a tarefa agendada
 "Tributalizando · publicar agora" (trig_01QeinJVxUXpyxPkTYctGXWB), que leva o post à fila e publica na hora.
@@ -35,7 +37,8 @@ a publicação, no minuto 00 de cada hora.
 
 1. Leia todos os documentos de `posts` no painel (ArtifactData `list`, guarde as `version`).
 2. Para cada documento com `status: "approved"` e `queued` falso:
-   - em `queue/<id>/post.json` grave `caption`, `scheduled_at` e `status: "approved"`;
+   - em `queue/<id>/post.json` grave `caption`, `scheduled_at`, `status: "approved"` e, se existirem,
+     `narration_mode` e `voice_status` (o dono pode trocar para "nenhuma" com "Publicar sem voz");
    - depois do push, atualize no painel `queued: true` (com `if_version`).
 3. Para `status: "discarded"` (ou de volta a `pending`) no painel: grave o mesmo `status` no `post.json`
    se ele ainda não foi publicado.
@@ -47,6 +50,29 @@ a publicação, no minuto 00 de cada hora.
 6. `git pull --rebase` e traga para o painel o que o publicador gravou: `post.json` com `published`
    (copie `status`, `media_id`, `published_at`) ou `error` (copie `status` e `error`).
 7. Nunca altere a legenda ou o horário que o dono editou. Nunca publique nada direto na API: só pelo workflow.
+8. Gravações: se algum documento tiver `voice_status: "uploaded"` (o disparo da Rotina D pode ter falhado),
+   execute a Rotina D para ele **antes** do passo 5. Reels com `narration_mode: "propria"` e `voice_status`
+   diferente de `done` não são publicados (o `publish.py` pula); se o horário vencer assim, avise o dono por notificação.
+
+## Rotina D · Processar gravação do dono (disparada pelo painel ao enviar o áudio)
+
+Tarefa "Tributalizando · processar gravação" (trig_01SaFjQJfhdVSgEtWWmSob64). O painel grava no post
+`voice: {files: [{asset_id, url, name, size}], uploaded_at}` e `voice_status: "uploaded"`, e dispara a tarefa.
+1. Leia `posts` no painel; para cada um com `voice_status: "uploaded"`, grave `voice_status: "processing"` (com `if_version`).
+2. Baixe cada arquivo (Artifact `read` com `url` do painel e `path` = `asset_id`) para `queue/<id>/voz/`, com o nome
+   `01.<ext>`, `02.<ext>`... na ordem de `voice.files`. Instale `ffmpeg` se faltar.
+3. No `spec.json`: `"narration": "propria"`, `"voice_files": ["voz/01.m4a", ...]`; copie as falas atuais do painel
+   (`narration[k].text`) para `scenes[k].speech`. Rode `python3 scripts/render_video.py queue/<id>/spec.json`.
+   1 arquivo = gravação inteira, cortada nas pausas; N arquivos (N = número de cenas) = um por cena.
+4. Confira: extraia quadros com `--preview` e o nível do áudio por segundo (há voz em cada cena, sem cortes no meio
+   de palavra: o fim de cada fala tem que estar antes da troca de cena).
+5. Commit + push (`queue/<id>/` com `voz/`, `video.mp4`, `cover.jpg`, `spec.json`, `post.json`), mensagem
+   "Voz do dono em <id>".
+6. Envie `video.mp4` e `cover.jpg` como assets e atualize o documento: `video`, `images: [capa]`, `duration`,
+   `narration` (com os `secs` novos), `voice_status: "done"`, `voice_error: null`. Se o post já estava `approved` e
+   `queued`, ele continua assim: o `post.json` já aponta para o vídeo novo.
+7. Erro (pausas não achadas, arquivo ilegível, número de arquivos errado): `voice_status: "error"` e `voice_error`
+   com a mensagem do gerador em linguagem simples, e notifique o dono.
 
 ## Rotina B · Criar posts do dia seguinte (diária, à tarde)
 
@@ -117,7 +143,10 @@ a publicação, no minuto 00 de cada hora.
    gancho e `owner_notes`. Só mude o que estiver errado na norma ou não couber na arte (texto cortado), e diga o que
    mudou no `reply`. Narração `sintetica`: escreva `speech` em **todas** as cenas (se o rascunho veio com falas
    vazias, escreva-as seguindo a seção "Narração") e gere a voz pelo gerador (ver "Reels animados").
-   `paga` e `propria` ainda não estão implementadas: gere com a voz sintética e avise no `reply`.
+   Narração `propria` (o dono grava): escreva `speech` em todas as cenas do mesmo jeito, gere o vídeo **sem voz**
+   (`"narration": "propria"` no spec, sem `voice_files`) e grave no painel `narration`, `narration_mode: "propria"`,
+   `voice_status: "waiting"`. O roteiro aparece na aba **Gravar** do painel. No `reply`, avise que o post espera a gravação.
+   `paga` ainda não está implementada: gere com a voz sintética e avise no `reply`.
 4. Na sugestão grave `status: "used"`, `post_id` e um `reply` curto; no post, `suggestion_id`. Sem fonte
    confirmável ou ideia vaga: `status: "info"` com `reply` dizendo o que falta. Sempre com `if_version`.
 5. Acrescente a pauta em `pautas.md` e faça commit.

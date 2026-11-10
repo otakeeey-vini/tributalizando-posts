@@ -402,7 +402,15 @@ def render(spec_path):
             s["speech"] = nar.get("text", "")
         mode = "sintetica"
     voices, engine = None, None
-    if mode and mode != "nenhuma" and any((s.get("speech") or "").strip() for s in scenes):
+    has_speech = any((s.get("speech") or "").strip() for s in scenes)
+    if mode == "propria":
+        files = [folder / f for f in spec.get("voice_files", [])]
+        if files:
+            voices = own_voice(files, len(scenes))
+            engine = "propria"
+        else:
+            print("aviso: narração própria sem gravação ainda; vídeo sai sem voz (aguardando o dono)")
+    elif mode and mode != "nenhuma" and has_speech:
         if mode != "sintetica":
             print(f"aviso: narração '{mode}' ainda não implementada; usando voz sintética")
         with tempfile.TemporaryDirectory() as vt:
@@ -413,7 +421,56 @@ def render(spec_path):
     total = tl[-1]["end"]
     doc = build_doc(scenes)
     placed = [(tl[k]["start"] + VOICE_IN, v) for k, v in enumerate(voices) if v is not None] if voices else None
-    _render_files(spec, folder, tl, total, doc, placed, engine)
+    _render_files(spec, folder, tl, total, doc, placed, engine, mode)
+
+
+def _decode_clean(path):
+    """Converte a gravação (m4a, mp3, wav, ogg...) para mono 44,1 kHz, tira ronco e chiado e iguala o volume."""
+    raw = subprocess.run(["ffmpeg", "-v", "error", "-i", str(path), "-ac", "1", "-ar", str(SR),
+                          "-af", "highpass=f=80,lowpass=f=12000,afftdn=nf=-25,loudnorm=I=-16:TP=-1.5:LRA=11",
+                          "-f", "s16le", "-"], capture_output=True, check=True).stdout
+    return np.frombuffer(raw, dtype=np.int16).astype(np.float64) / 32768
+
+
+def _silences(a, min_len, thr_db=-38):
+    """Trechos de silêncio (início, fim) em amostras, com pelo menos min_len segundos."""
+    hop = int(0.02 * SR)
+    frames = len(a) // hop
+    rms = np.sqrt(np.mean(a[:frames * hop].reshape(frames, hop) ** 2, axis=1) + 1e-12)
+    quiet = 20 * np.log10(rms) < max(thr_db, 20 * np.log10(np.percentile(rms, 95)) - 30)
+    out, k = [], 0
+    while k < frames:
+        if quiet[k]:
+            j = k
+            while j < frames and quiet[j]:
+                j += 1
+            if (j - k) * hop >= min_len * SR:
+                out.append((k * hop, j * hop))
+            k = j
+        else:
+            k += 1
+    return out
+
+
+def own_voice(files, n):
+    """Gravação do dono → uma fala por cena.
+    n arquivos = um por cena, na ordem. 1 arquivo = tudo junto, cortado nas n-1 pausas mais longas."""
+    if len(files) == n:
+        return [_trim(_decode_clean(f)) for f in files]
+    if len(files) != 1:
+        raise RuntimeError(f"recebi {len(files)} arquivos de voz para {n} cenas: mande 1 (tudo junto) ou {n} (um por cena)")
+    a = _decode_clean(files[0])
+    gaps = [g for g in _silences(a, 0.45) if g[0] > 0.5 * SR and g[1] < len(a) - 0.5 * SR]
+    if len(gaps) < n - 1:
+        raise RuntimeError(f"achei só {len(gaps)} pausas na gravação e preciso de {n - 1} (uma entre cada cena): "
+                           "faça uma pausa de 2 segundos entre as cenas ou mande um arquivo por cena")
+    cuts = sorted(sorted(gaps, key=lambda g: g[1] - g[0], reverse=True)[:n - 1])
+    bounds = [0] + [(g[0] + g[1]) // 2 for g in cuts] + [len(a)]
+    parts = [_trim(a[bounds[k]:bounds[k + 1]]) for k in range(n)]
+    for k, p in enumerate(parts):
+        if len(p) < 0.4 * SR:
+            raise RuntimeError(f"a fala da cena {k + 1} ficou vazia ou curta demais: confira as pausas da gravação")
+    return parts
 
 
 def build_doc(scenes):
@@ -444,7 +501,7 @@ def preview(spec_path, times, out_dir):
             browser.close()
 
 
-def _render_files(spec, folder, tl, total, doc, voices=None, engine=None):
+def _render_files(spec, folder, tl, total, doc, voices=None, engine=None, mode="nenhuma"):
     scenes = spec["scenes"]
     with tempfile.TemporaryDirectory() as tmp:
         tmp = Path(tmp)
@@ -478,12 +535,22 @@ def _render_files(spec, folder, tl, total, doc, voices=None, engine=None):
     post = json.loads(post_file.read_text(encoding="utf-8")) if post_file.exists() else {}
     post.update({k: spec[k] for k in ("scheduled_at", "caption", "title", "sources") if k in spec})
     post.update({"format": "reels", "video": "video.mp4", "cover": "cover.jpg", "images": ["cover.jpg"], "duration": round(total, 1)})
-    if voices:
+    if any((s.get("speech") or "").strip() for s in scenes) and mode != "nenhuma":
         post["narration"] = [{"shows": re.sub(r"\*\*", "", s.get("title") or s.get("figure") or s.get("statement") or ""),
-                              "text": s.get("speech", "")} for s in scenes]
+                              "text": s.get("speech", ""),
+                              "secs": round(max(tl[k]["end"] - tl[k]["start"], len((s.get("speech") or "").split()) / 2.5 + 1), 1)}
+                             for k, s in enumerate(scenes)]
+    else:
+        post.pop("narration", None)
+    post["narration_mode"] = mode or "nenhuma"
+    if voices:
         post["narration_engine"] = engine
     else:
-        post.pop("narration", None); post.pop("narration_engine", None)
+        post.pop("narration_engine", None)
+    if mode == "propria":
+        post["voice_status"] = "done" if voices else "waiting"
+    else:
+        post.pop("voice_status", None)
     post.setdefault("status", "pending")
     post_file.write_text(json.dumps(post, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"{folder.name}: Reels de {total:.1f}s" + (f", narração {engine}" if voices else ", sem narração"))
