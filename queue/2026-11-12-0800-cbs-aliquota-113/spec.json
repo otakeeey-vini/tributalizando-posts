@@ -84,5 +84,8 @@
       "speech": "Salva esse vídeo e me segue: quando o Senado bater o martelo, eu te conto aqui."
     }
   ],
-  "narration": "propria"
+  "narration": "propria",
+  "voice_files": [
+    "voz/01.m4a"
+  ]
 }

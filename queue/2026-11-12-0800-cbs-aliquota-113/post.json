@@ -15,14 +15,14 @@
   "images": [
     "cover.jpg"
   ],
-  "duration": 49.0,
+  "duration": 70.0,
   "status": "pending",
   "suggestion_id": "tema-c01-cbs-aliquota",
   "narration": [
     {
       "shows": "CBS de 11,3%: o que já foi decidido",
       "text": "Onze vírgula três por cento. Guarda esse número: ele vai estar no preço de quase tudo.",
-      "secs": 7.4
+      "secs": 8.9
     },
     {
       "shows": "O que é a CBS",
@@ -42,7 +42,7 @@
     {
       "shows": "O pedido para adiar para 2028",
       "text": "Muita empresa diz que não vai dar tempo de ajustar sistema e preço. Mas pedido não é lei: por enquanto, a cobrança continua marcada para dois mil e vinte e sete.",
-      "secs": 13.4
+      "secs": 16.4
     },
     {
       "shows": "E para quem tem cripto?",
@@ -56,5 +56,6 @@
     }
   ],
   "narration_mode": "propria",
-  "voice_status": "waiting"
+  "voice_status": "done",
+  "narration_engine": "propria"
 }
