@@ -20,7 +20,9 @@ O id do documento é igual ao nome da pasta na fila. Post feito a partir de suge
 "Tributalizando · publicar agora" (trig_01QeinJVxUXpyxPkTYctGXWB), que leva o post à fila e publica na hora.
 
 Sugestões do dono (`suggestions/<id>` no painel): `text, format ("" | carrossel | imagem única), date ("AAAA-MM-DD" ou ""),
-slot ("08:00" | "12:00" | "18:00" | ""), notes, status (new | used | info | skipped), post_id, reply, created_at`.
+slot ("08:00" | "12:00" | "18:00" | ""), notes, status (new | creating | used | info | skipped), post_id, reply, created_at`.
+`creating` = o dono clicou em **Criar agora**; o painel dispara a tarefa "Tributalizando · criar post da sugestão"
+(trig_01VXbeVdJrkYmZXa6zjnSmeV), que segue a Rotina C.
 
 ## Rotina A · Sincronizar e publicar (de hora em hora, às :55, das 6:55 às 22:55)
 
@@ -81,6 +83,18 @@ a publicação, no minuto 00 de cada hora.
 7. Envie as artes ao painel (Artifact publish com `url` do painel, `asset: true`, `file_paths`) e crie os
    documentos em `posts` (ArtifactData `batch` com `set`), `status: "pending"`, `queued: false`.
 8. Acrescente as 3 pautas em `pautas.md` (data, horário, título, formato) e faça commit.
+
+## Rotina C · Criar post de sugestão agora (disparada pelo painel)
+
+1. Liste `suggestions` com `status: "creating"`. Para cada uma, crie **um** post seguindo os passos 3 a 7 da
+   Rotina B (pesquisa na fonte, spec, render, conferência das artes, push, assets e documento no painel).
+2. Horário (`scheduled_at`): se a sugestão tiver `date` e `slot` futuros, use-os. Senão, o próximo horário entre
+   8h, 12h e 18h (hoje ou amanhã) ainda sem post na fila; se todos de hoje e amanhã estiverem ocupados, use o
+   próximo dia livre. O dono pode publicar na hora pelo botão **Publicar agora**.
+3. Formato: o pedido na sugestão; sem pedido, o que servir melhor ao conteúdo.
+4. Na sugestão grave `status: "used"`, `post_id` e um `reply` curto; no post, `suggestion_id`. Sem fonte
+   confirmável ou ideia vaga: `status: "info"` com `reply` dizendo o que falta. Sempre com `if_version`.
+5. Acrescente a pauta em `pautas.md` e faça commit.
 
 ## Identidade visual
 
