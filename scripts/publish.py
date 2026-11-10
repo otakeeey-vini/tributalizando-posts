@@ -22,8 +22,8 @@ from urllib import error, parse, request
 
 ROOT = Path(__file__).resolve().parent.parent
 QUEUE = ROOT / "queue"
-TOKEN = os.environ.get("IG_ACCESS_TOKEN", "")
-IG_USER_ID = os.environ.get("IG_USER_ID", "")
+TOKEN = "".join(os.environ.get("IG_ACCESS_TOKEN", "").split()).strip('"\'')
+IG_USER_ID = os.environ.get("IG_USER_ID", "").strip()
 REPO = os.environ.get("GITHUB_REPOSITORY", "otakeeey-vini/tributalizando-posts")
 BRANCH = os.environ.get("GITHUB_REF_NAME", "main")
 API_HOSTS = ["https://graph.facebook.com", "https://graph.instagram.com"]
@@ -33,7 +33,7 @@ def call(method, path, params=None, host=None):
     params = dict(params or {})
     params["access_token"] = TOKEN
     hosts = [host] if host else API_HOSTS
-    last_err = None
+    errs = []
     for h in hosts:
         url = f"{h}/{path}"
         data = None
@@ -45,8 +45,8 @@ def call(method, path, params=None, host=None):
             with request.urlopen(request.Request(url, data=data, method=method), timeout=60) as r:
                 return json.loads(r.read().decode()), h
         except error.HTTPError as e:
-            last_err = f"{e.code} {e.read().decode(errors='replace')}"
-    raise RuntimeError(last_err)
+            errs.append(f"{h}: {e.code} {e.read().decode(errors='replace')}")
+    raise RuntimeError(" | ".join(errs))
 
 
 def wait_ready(container_id, host):
@@ -91,6 +91,7 @@ def publish(folder, post):
 
 
 def check():
+    print(f"Token: {len(TOKEN)} caracteres, começa com {TOKEN[:3]!r}; IG_USER_ID com {len(IG_USER_ID)} dígitos")
     res, host = call("GET", IG_USER_ID, {"fields": "id,username"})
     print(f"Token OK em {host}: conectado como @{res.get('username')} ({res.get('id')})")
 
