@@ -20,7 +20,10 @@ O id do documento é igual ao nome da pasta na fila. Post feito a partir de suge
 Sugestões do dono (`suggestions/<id>` no painel): `text, format ("" | carrossel | imagem única), date ("AAAA-MM-DD" ou ""),
 slot ("08:00" | "12:00" | "18:00" | ""), notes, status (new | used | info | skipped), post_id, reply, created_at`.
 
-## Rotina A · Sincronizar (de hora em hora, às :40, das 6:40 às 22:40)
+## Rotina A · Sincronizar e publicar (de hora em hora, às :55, das 6:55 às 22:55)
+
+O agendamento do GitHub Actions não é confiável (atrasa ou não roda). Por isso esta rotina é quem dispara
+a publicação, no minuto 00 de cada hora.
 
 1. Leia todos os documentos de `posts` no painel (ArtifactData `list`, guarde as `version`).
 2. Para cada documento com `status: "approved"` e `queued` falso:
@@ -28,10 +31,14 @@ slot ("08:00" | "12:00" | "18:00" | ""), notes, status (new | used | info | skip
    - depois do push, atualize no painel `queued: true` (com `if_version`).
 3. Para `status: "discarded"` (ou de volta a `pending`) no painel: grave o mesmo `status` no `post.json`
    se ele ainda não foi publicado.
-4. Traga para o painel o que o publicador gravou no repositório: `post.json` com `published` (copie `status`,
-   `media_id`, `published_at`) ou `error` (copie `status` e `error`).
-5. Um commit só (`git pull --rebase` antes), mensagem "Sincroniza aprovações do painel".
-6. Nunca altere a legenda ou o horário que o dono editou. Nunca publique nada direto na API.
+4. Um commit só (`git pull --rebase` antes), mensagem "Sincroniza aprovações do painel". Sem mudanças, sem commit.
+5. Se existir algum `post.json` com `status: "approved"` e `scheduled_at` até o fim da hora seguinte:
+   espere até o minuto 00 (use espera em segundo plano, não `sleep` em primeiro plano) e dispare o publicador:
+   `gh api -X POST repos/otakeeey-vini/tributalizando-posts/actions/workflows/publicar.yml/dispatches -f ref=main -f 'inputs[modo]=publicar'`.
+   Acompanhe a execução até terminar (`gh api repos/.../actions/runs`). Se nada estiver vencido, pule este passo.
+6. `git pull --rebase` e traga para o painel o que o publicador gravou: `post.json` com `published`
+   (copie `status`, `media_id`, `published_at`) ou `error` (copie `status` e `error`).
+7. Nunca altere a legenda ou o horário que o dono editou. Nunca publique nada direto na API: só pelo workflow.
 
 ## Rotina B · Criar posts do dia seguinte (diária, à tarde)
 
