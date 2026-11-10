@@ -121,6 +121,37 @@ a publicação, no minuto 00 de cada hora.
    confirmável ou ideia vaga: `status: "info"` com `reply` dizendo o que falta. Sempre com `if_version`.
 5. Acrescente a pauta em `pautas.md` e faça commit.
 
+## Narração (vale para `speech` dos rascunhos e para `narration` dos Reels)
+
+Regra do dono: a narração **explica o que está sendo mostrado, mas nunca é só a leitura do texto da tela**.
+Ela vai além da arte, como um contador explicando a um cliente, no **tom** escolhido para o post.
+
+Cada fala de cena deve trazer pelo menos um destes, que **não** está escrito na tela:
+- o **porquê** da regra (o que a Receita quer controlar, de onde vem o limite);
+- um **exemplo concreto em reais** ("vendeu quarenta mil, lucrou mil...");
+- a **consequência prática** ou o próximo passo (DARF, prazo, o que guardar, o que acontece se esquecer);
+- o **erro comum** que aquela tela evita.
+
+Como escrever:
+- Pode citar a ideia da tela em poucas palavras para ancorar, mas não repita frase nem lista da arte.
+- Segunda pessoa ("você"), frases curtas, sem juridiquês. Norma citada no máximo uma vez, de forma falada
+  ("a regra está na Instrução Normativa 2.291, de 2025").
+- Escreva para ser **falado**: números por extenso ou como se fala ("trinta e cinco mil reais", "quinze por
+  cento", "DARF código quarenta e seis zero zero"); nada de siglas soltas sem explicar na primeira vez.
+- Ritmo de 2,5 palavras por segundo: cada fala cabe na duração da cena (cena de 6 s ≈ 15 palavras). Abertura
+  com gancho nos 3 primeiros segundos; fechamento com um convite em uma frase.
+- Tom: "técnico e direto" = preciso, sem floreio; "didático" = mais exemplo e passo a passo; "leve e próximo" =
+  conversa, pode ter uma pitada de humor; "alerta" = foco no risco e no prazo, sem alarmismo.
+- Os Reels guardam a narração em `narration: [{shows: "resumo do que está na tela", text: "fala"}]`, uma por
+  cena, no `post.json` e no documento do painel. O dono edita no painel; na Rotina A, se a narração mudou num
+  Reels aprovado, gere a voz e o vídeo de novo antes de publicar.
+
+Exemplo (tela: "R$ 35 mil · é o limite de vendas no mês, não de lucro"):
+- Ruim (leitura): "Trinta e cinco mil reais é o limite de vendas no mês. Não é limite de lucro."
+- Bom: "Muita gente acha que pode lucrar até trinta e cinco mil por mês sem imposto. Não é assim: a Receita
+  olha quanto você vendeu, somando todas as moedas. Vendeu quarenta mil e lucrou só mil? Passou do limite,
+  e esse lucro de mil reais paga imposto, com DARF até o fim do mês seguinte."
+
 ## Identidade visual
 
 Verde-floresta `#0E3B2E`, verde-profundo `#082A20`, dourado `#E8B931`, creme `#F6F1E6`, tinta `#13221C`.
