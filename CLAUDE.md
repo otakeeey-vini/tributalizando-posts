@@ -20,7 +20,11 @@ O id do documento é igual ao nome da pasta na fila. Post feito a partir de suge
 "Tributalizando · publicar agora" (trig_01QeinJVxUXpyxPkTYctGXWB), que leva o post à fila e publica na hora.
 
 Sugestões do dono (`suggestions/<id>` no painel): `text, format ("" | carrossel | imagem única | reels), date ("AAAA-MM-DD" ou ""),
-slot ("08:00" | "12:00" | "18:00" | ""), notes, status (new | creating | used | info | skipped), post_id, reply, created_at`.
+slot ("08:00" | "12:00" | "18:00" | ""), notes, status (new | drafting | draft | creating | used | info | skipped), post_id, reply,
+created_at, draft, draft_edited, draft_approved`.
+`drafting` = o dono pediu **rascunho** (botão "Ver rascunho antes", "Enviar e ver rascunho" ou "Refazer com minhas
+observações"); a mesma tarefa da Rotina C escreve o rascunho e grava `status: "draft"`. Em `draft` o dono edita no painel
+e, ao clicar "Aprovar e criar o post", a sugestão vai para `creating` com `draft_approved: true`.
 `creating` = o dono clicou em **Criar agora**; o painel dispara a tarefa "Tributalizando · criar post da sugestão"
 (trig_01VXbeVdJrkYmZXa6zjnSmeV), que segue a Rotina C.
 
@@ -48,7 +52,7 @@ a publicação, no minuto 00 de cada hora.
 
 1. Veja em `pautas.md` o que já foi publicado ou está na fila e **não repita** tema nem ângulo dos últimos 30 dias.
 1.1. **Sugestões do dono vêm primeiro.** Leia `suggestions` no painel (ArtifactData `list`). Para cada uma com
-   `status: "new"`, da mais antiga para a mais nova:
+   `status: "new"`, da mais antiga para a mais nova (ignore `drafting`/`draft`: estão com o dono ou com a Rotina C):
    - com `date` igual ao dia que você vai preencher (ou vazia): use nos slots desse dia, respeitando `slot` e
      `format` quando informados (se `slot` já estiver ocupado por outra sugestão, use o próximo livre);
    - com `date` futura e diferente: deixe para o lote daquele dia;
@@ -89,8 +93,19 @@ a publicação, no minuto 00 de cada hora.
    documentos em `posts` (ArtifactData `batch` com `set`), `status: "pending"`, `queued: false`.
 8. Acrescente as 3 pautas em `pautas.md` (data, horário, título, formato) e faça commit.
 
-## Rotina C · Criar post de sugestão agora (disparada pelo painel)
+## Rotina C · Rascunho ou post de sugestão agora (disparada pelo painel)
 
+0. **Rascunhos primeiro.** Para cada sugestão com `status: "drafting"`: pesquise e confira na fonte (passo 3 da
+   Rotina B), **não** renderize nem crie post. Grave em `draft` (com `if_version`) e mude para `status: "draft"`:
+   ```
+   draft: { format: "carrossel" | "imagem única" | "reels", tone: "técnico e direto" | "didático" | "leve e próximo" | "alerta",
+            narration: "nenhuma" | "sintetica" | "paga" | "propria" (só reels), duration: 15-60 (só reels),
+            title, hook (1ª linha da legenda), follow (gancho "Siga @tributalizando ..."),
+            parts: [{ type: cover|point|big|checklist|cta, title, text (checklist: 1 item por linha), visual, speech (fala, se houver narração) }],
+            sources: [...], claude_notes (1 a 2 frases: limitações, o que não deu para confirmar), owner_notes }
+   ```
+   Se já existir `draft` (dono pediu para refazer), parta dele e siga `owner_notes`; mantenha `owner_notes` no novo rascunho.
+   Sem fonte confirmável ou ideia vaga: `status: "info"` com `reply`, como abaixo.
 1. Liste `suggestions` com `status: "creating"`. Para cada uma, crie **um** post seguindo os passos 3 a 7 da
    Rotina B (pesquisa na fonte, spec, render, conferência das artes, push, assets e documento no painel).
 2. Horário (`scheduled_at`): se a sugestão tiver `date` e `slot` futuros, use-os. Senão, o próximo horário entre
@@ -98,6 +113,10 @@ a publicação, no minuto 00 de cada hora.
    próximo dia livre. O dono pode publicar na hora pelo botão **Publicar agora**.
 3. Formato: o pedido na sugestão (`carrossel`, `imagem única` ou `reels`; para `reels` siga a seção "Reels animados");
    sem pedido, o que servir melhor ao conteúdo.
+   **Com `draft` aprovado pelo dono, ele manda**: siga formato, tom, ordem e texto das lâminas/cenas, visuais, duração,
+   gancho e `owner_notes`. Só mude o que estiver errado na norma ou não couber na arte (texto cortado), e diga o que
+   mudou no `reply`. Narração (`narration` diferente de `nenhuma`): enquanto não estiver implementada (em teste),
+   gere o Reels sem narração e avise no `reply`.
 4. Na sugestão grave `status: "used"`, `post_id` e um `reply` curto; no post, `suggestion_id`. Sem fonte
    confirmável ou ideia vaga: `status: "info"` com `reply` dizendo o que falta. Sempre com `if_version`.
 5. Acrescente a pauta em `pautas.md` e faça commit.
