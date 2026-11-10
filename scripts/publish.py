@@ -49,15 +49,15 @@ def call(method, path, params=None, host=None):
     raise RuntimeError(" | ".join(errs))
 
 
-def wait_ready(container_id, host):
-    for _ in range(30):
+def wait_ready(container_id, host, tries=30, pause=5):
+    for _ in range(tries):
         res, _ = call("GET", container_id, {"fields": "status_code"}, host)
         status = res.get("status_code")
         if status in (None, "FINISHED"):
             return
         if status in ("ERROR", "EXPIRED"):
             raise RuntimeError(f"container {container_id} com status {status}")
-        time.sleep(5)
+        time.sleep(pause)
     raise RuntimeError(f"container {container_id} não ficou pronto a tempo")
 
 
@@ -67,8 +67,18 @@ def image_url(folder, name):
 
 
 def publish(folder, post):
-    images = post["images"]
+    images = post.get("images", [])
     caption = post.get("caption", "")
+    if post.get("video"):
+        params = {"media_type": "REELS", "video_url": image_url(folder, post["video"]),
+                  "caption": caption, "share_to_feed": "true"}
+        if post.get("cover"):
+            params["cover_url"] = image_url(folder, post["cover"])
+        res, host = call("POST", f"{IG_USER_ID}/media", params)
+        container = res["id"]
+        wait_ready(container, host, tries=60, pause=10)
+        res, _ = call("POST", f"{IG_USER_ID}/media_publish", {"creation_id": container}, host)
+        return res["id"]
     if len(images) == 1:
         res, host = call("POST", f"{IG_USER_ID}/media",
                          {"image_url": image_url(folder, images[0]), "caption": caption})

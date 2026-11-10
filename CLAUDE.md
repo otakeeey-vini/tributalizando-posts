@@ -79,3 +79,14 @@ Verde-floresta `#0E3B2E`, verde-profundo `#082A20`, dourado `#E8B931`, creme `#F
 Tipos: Inter Display (títulos, 800–900), Inter (texto), Lora itálico (citação no CTA). Logo: `brand/logo.svg`
 (quadrado arredondado com "T" dourado e moeda). Wordmark "tributa**lizando**" com "lizando" em dourado.
 Artes 1080×1350 (4:5), JPEG. Não use fotos de pessoas reais nem logos de corretoras.
+
+## Reels animados (estrutura pronta, AINDA NÃO ATIVA na Rotina B)
+
+Só gere Reels quando o dono pedir ou depois que esta seção for marcada como ativa.
+- Gerador: `python3 scripts/render_video.py queue/<pasta>/spec.json` → `video.mp4` (1080×1920, 30 fps,
+  H.264 + AAC, trilha sintetizada própria), `cover.jpg` e `post.json` com `format: "reels"`, `video`, `cover`.
+- Spec: campos de sempre + `scenes` (tipos `hook`, `point`, `big`, `checklist`, `cta`; ver docstring do script).
+  Ideal 15 a 30 s, 4 a 6 cenas. Área segura: o script já deixa margem para a interface do Instagram.
+- Painel: envie `video.mp4` e `cover.jpg` como assets; no documento grave `video: "/_blob/<id>"`,
+  `images: ["/_blob/<id da capa>"]`, `format: "reels"`. O painel mostra o player.
+- Publicação: `scripts/publish.py` publica como REELS (`share_to_feed`, `cover_url`) quando `post.json` tem `video`.
