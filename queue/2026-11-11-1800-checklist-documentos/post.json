@@ -12,5 +12,7 @@
     "02.jpg",
     "03.jpg"
   ],
-  "status": "approved"
+  "status": "published",
+  "media_id": "18640304761001064",
+  "published_at": "2026-11-10T13:31:04.885969+00:00"
 }
