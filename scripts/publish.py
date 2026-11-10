@@ -97,7 +97,11 @@ def check():
 
 def main():
     if not TOKEN or not IG_USER_ID:
-        sys.exit("Faltam os segredos IG_ACCESS_TOKEN e/ou IG_USER_ID.")
+        msg = "Faltam os segredos IG_ACCESS_TOKEN e/ou IG_USER_ID."
+        if "--check" in sys.argv:
+            sys.exit(msg)
+        print(msg + " Nada a fazer.")
+        return
     if "--check" in sys.argv:
         check()
         return
