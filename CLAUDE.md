@@ -20,7 +20,7 @@ O id do documento é igual ao nome da pasta na fila. Post feito a partir de suge
 Sugestões do dono (`suggestions/<id>` no painel): `text, format ("" | carrossel | imagem única), date ("AAAA-MM-DD" ou ""),
 slot ("08:00" | "12:00" | "18:00" | ""), notes, status (new | used | info | skipped), post_id, reply, created_at`.
 
-## Rotina A · Sincronizar (07:40, 11:40, 17:40, 21:40)
+## Rotina A · Sincronizar (de hora em hora, às :40, das 6:40 às 22:40)
 
 1. Leia todos os documentos de `posts` no painel (ArtifactData `list`, guarde as `version`).
 2. Para cada documento com `status: "approved"` e `queued` falso:
