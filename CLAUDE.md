@@ -74,6 +74,30 @@ Tarefa "Tributalizando · processar gravação" (trig_01SaFjQJfhdVSgEtWWmSob64).
 7. Erro (pausas não achadas, arquivo ilegível, número de arquivos errado): `voice_status: "error"` e `voice_error`
    com a mensagem do gerador em linguagem simples, e notifique o dono.
 
+## Rotina E · Preparar post para gravar (disparada pelo painel)
+
+Tarefa "Tributalizando · preparar post para gravar" (trig_01QaQUoULN9YYabaNH5PWiwE). O dono moveu para a aba
+**Gravar** um post que ainda não é Reels narrado. O painel já gravou no documento `prep_record: true`,
+`return_status` (o status que o post tinha: "approved" ou "pending"), `status: "pending"` e `queued: false`
+(assim nada é publicado no meio da conversão).
+
+1. Leia `posts` no painel; processe cada documento com `prep_record: true` (guarde a `version`).
+2. Em `queue/<id>/`: monte no `spec.json` as `scenes` do Reels a partir das lâminas (`slides`) do post
+   (cover → hook; point, big, checklist e cta iguais), mantendo título, legenda, horário e fontes. Escreva uma
+   `speech`/narração por cena seguindo a seção **Narração**, no tom do post. Use `"narration": "propria"`, sem
+   `voice_files`. Se o post já for Reels mas sem narração, só escreva as falas.
+3. `python3 scripts/render_video.py queue/<id>/spec.json` (sai sem voz, aguardando o dono). Confira 3 quadros.
+4. Commit + push. Envie `video.mp4` e `cover.jpg` ao painel (assets) e atualize o documento (com `if_version`):
+   `video`, `images: [capa]`, `format: "reels"`, `narration: [{shows, text, secs}]`, `narration_mode: "propria"`,
+   `voice_status: "waiting"`, `prep_record: false`, `status: <return_status>`, `queued: false`.
+   O post aparece na aba Gravar; o `publish.py` não publica Reels `propria` sem `voice_status: "done"`.
+5. Erro: `prep_record: false`, `status: <return_status>`, `error` com a explicação (1 frase) e `queued: false`.
+
+**Mover entre abas (painel):** o dono pode mover qualquer post não publicado entre Para revisar (`pending`),
+Gravar, Aprovados (`approved`) e Descartados (`discarded`), e editar legenda, horário e narração mesmo quando o
+post já está na fila. Toda mudança grava `queued: false`, então a Rotina A leva o novo estado à fila. Mover um
+Reels que já tem narração para Gravar só grava `narration_mode: "propria"` e `voice_status: "waiting"`.
+
 ## Rotina B · Criar posts do dia seguinte (diária, à tarde)
 
 1. Veja em `pautas.md` o que já foi publicado ou está na fila e **não repita** tema nem ângulo dos últimos 30 dias.
