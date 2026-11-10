@@ -33,7 +33,8 @@ O id do documento é igual ao nome da pasta na fila.
 ## Rotina B · Criar posts do dia seguinte (diária, à tarde)
 
 1. Veja em `pautas.md` o que já foi publicado ou está na fila e **não repita** tema nem ângulo dos últimos 30 dias.
-2. Escolha 3 pautas para **amanhã** (8h, 12h, 18h), variando formato: pelo menos um carrossel (4 a 7 lâminas)
+2. Escolha 3 pautas para o **próximo dia sem posts na fila** (comece por amanhã; se já houver pastas
+   `queue/<data>-*` para amanhã, use o dia seguinte livre), nos horários 8h, 12h e 18h, variando formato: pelo menos um carrossel (4 a 7 lâminas)
    e uma imagem única. Priorize o que é atual: prazos do mês (DeCripto vence no último dia útil do mês seguinte),
    mudanças de regra, dúvidas comuns, exemplos com números.
 3. **Pesquise antes de afirmar**: use busca na web e confira norma, artigo, alíquota, prazo e valor na fonte
