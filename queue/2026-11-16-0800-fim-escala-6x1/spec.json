@@ -1,0 +1,70 @@
+{
+  "title": "Fim da escala 6x1: 42h em dezembro, 40h em 2027",
+  "format": "carrossel",
+  "scheduled_at": "2026-11-16T08:00:00-03:00",
+  "sources": [
+    "Emenda Constitucional nº 141, de 16/10/2026 (art. 7º, XIII e XV, da Constituição; arts. 2º, 6º, 8º e 10 da EC): https://legis.senado.leg.br/norma/44184944/publicacao/44189027",
+    "https://www12.senado.leg.br/noticias/materias/2026/10/16/congresso-promulga-o-fim-da-escala-6x1-e-aposentadoria-de-agentes-de-saude",
+    "https://www.sbadvocacia.com.br/ec-141-2026-publicada-as-datas-exatas-da-adequacao-ao-fim-da-escala-6x1/"
+  ],
+  "caption": "A escala 6x1 tem data para acabar: 16 de dezembro de 2026.\n\nA Emenda Constitucional 141, publicada em 16/10, reduz a jornada em duas etapas e garante dois dias de descanso por semana. O salário não pode cair.\n\n📅 16/12/2026: jornada máxima de 42h semanais e 2 dias de descanso remunerado\n📅 16/12/2027: limite definitivo de 40h semanais\n📌 Sem redução de salário nem de piso, inclusive nos contratos atuais\n📌 A hora fica mais cara: o divisor cai de 220 para 210 e depois 200, e a hora extra acompanha\n⚠️ Cláusulas de acordo ou convenção que contrariem as novas regras perdem efeito em 16/12/2026\n\nSalve e envie para o RH e o departamento pessoal da sua empresa 👇\n👉 Siga @tributalizando pra acompanhar cada etapa da transição na folha.\n\nBase: EC 141/2026 (art. 7º, XIII e XV, da Constituição).\nConteúdo informativo; cada caso merece análise individual.\n\n#escala6x1 #departamentopessoal #folhadepagamento #rh #contabilidade #direitotrabalhista",
+  "slides": [
+    {
+      "type": "cover",
+      "tag": "Departamento pessoal",
+      "title": "Fim da escala 6x1: **o que muda na folha**",
+      "subtitle": "As datas da EC 141/2026 e o impacto no custo da empresa."
+    },
+    {
+      "type": "point",
+      "n": "1",
+      "title": "**42h** a partir de 16/12/2026",
+      "body": "A jornada máxima cai de 44h para **42h semanais**.\n\nNa mesma data começam os **2 dias de descanso** remunerado, um deles de preferência no domingo.",
+      "note": "EC 141/2026, art. 6º, I, e art. 10; CF, art. 7º, XV"
+    },
+    {
+      "type": "point",
+      "n": "2",
+      "title": "**40h** a partir de 16/12/2027",
+      "body": "Um ano depois, o limite definitivo: **8h por dia e 40h por semana**.\n\nAté lá, acordo ou convenção coletiva pode reorganizar as 42h na semana.",
+      "note": "EC 141/2026, art. 6º, II; CF, art. 7º, XIII"
+    },
+    {
+      "type": "big",
+      "kicker": "Salário mensal",
+      "figure": "R$ 0",
+      "statement": "de redução. **Nem no salário, nem no piso.**",
+      "body": "A regra vale também para os contratos que já estão em vigor.",
+      "note": "EC 141/2026, art. 2º e parágrafo único"
+    },
+    {
+      "type": "point",
+      "n": "3",
+      "title": "A **hora** fica mais cara",
+      "body": "Salário de R$ 2.200: a hora de **R$ 10,00** (divisor 220) vai a **R$ 10,48** (210) e depois **R$ 11,00** (200).\n\nHora extra, adicional noturno e DSR sobem junto.",
+      "note": "Divisor = jornada semanal × 5. Cálculo ilustrativo"
+    },
+    {
+      "type": "checklist",
+      "title": "O que o DP precisa revisar",
+      "items": [
+        "Escalas e turnos: 2 folgas por semana",
+        "Divisor da hora no sistema de folha",
+        "Acordos e convenções: o que perde efeito",
+        "Banco de horas e compensações",
+        "Custo de horas extras e de novas contratações"
+      ],
+      "note": "Cláusulas incompatíveis perdem efeito em 16/12/2026"
+    },
+    {
+      "type": "cta",
+      "title": "Faltam semanas para a **primeira etapa**",
+      "body": "Ajuste escalas e folha antes de 16/12.",
+      "actions": [
+        ["1", "**Salve** para conferir as datas"],
+        ["2", "**Envie** para o RH da sua empresa"],
+        ["3", "**Siga** @tributalizando para acompanhar a transição"]
+      ]
+    }
+  ]
+}
