@@ -10,5 +10,7 @@
   "images": [
     "01.jpg"
   ],
-  "status": "approved"
+  "status": "published",
+  "media_id": "18162856111504507",
+  "published_at": "2026-11-12T21:15:03.092475+00:00"
 }
