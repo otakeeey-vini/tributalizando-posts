@@ -47,14 +47,11 @@ jobs:
           KEY: ${{ secrets.ELEVENLABS_API_KEY }}
           VID: ${{ steps.vozes.outputs.voice_id }}
         run: |
-          cat > body.json <<'EOF'
-          {"text": "Oi! Aqui é do Tributalizando. Vendeu mais de trinta e cinco mil reais em cripto no mês? Então o lucro paga imposto, com DARF até o último dia útil do mês seguinte.",
-           "model_id": "eleven_multilingual_v2",
-           "voice_settings": {"stability": 0.5, "similarity_boost": 0.8, "style": 0.0, "use_speaker_boost": true}}
-          EOF
+          python3 -c 'import json; json.dump({"text": "Oi! Aqui é do Tributalizando. Vendeu mais de trinta e cinco mil reais em cripto no mês? Então o lucro paga imposto, com DARF até o último dia útil do mês seguinte.", "model_id": "eleven_multilingual_v2", "voice_settings": {"stability": 0.5, "similarity_boost": 0.8, "style": 0.0, "use_speaker_boost": True}}, open("body.json", "w"), ensure_ascii=False)'
+          echo "Corpo: $(stat -c %s body.json) bytes"
           code=$(curl -s -o teste-voz.mp3 -w "%{http_code}" -X POST \
             -H "xi-api-key: $KEY" -H "Content-Type: application/json" -H "Accept: audio/mpeg" \
-            --data @body.json "https://api.elevenlabs.io/v1/text-to-speech/$VID")
+            --data-binary @body.json "https://api.elevenlabs.io/v1/text-to-speech/$VID")
           echo "HTTP text-to-speech: $code"
           if [ "$code" != "200" ]; then echo "ERRO ao gerar voz:"; head -c 400 teste-voz.mp3; echo; exit 1; fi
           echo "Áudio gerado: $(stat -c %s teste-voz.mp3) bytes"
