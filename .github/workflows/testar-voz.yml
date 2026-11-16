@@ -1,0 +1,67 @@
+name: Testar voz (ElevenLabs)
+
+on:
+  workflow_dispatch:
+    inputs:
+      voice_id:
+        description: "ID da voz (vazio = usa a primeira voz clonada da conta)"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  testar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Conferir chave e listar vozes
+        id: vozes
+        env:
+          KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+          VOICE_IN: ${{ github.event.inputs.voice_id }}
+        run: |
+          if [ -z "$KEY" ]; then echo "ERRO: segredo ELEVENLABS_API_KEY não encontrado"; exit 1; fi
+          code=$(curl -s -o vozes.json -w "%{http_code}" -H "xi-api-key: $KEY" "https://api.elevenlabs.io/v1/voices")
+          echo "HTTP /v1/voices: $code"
+          if [ "$code" != "200" ]; then echo "ERRO na chave:"; head -c 400 vozes.json; echo; exit 1; fi
+          python3 - <<'EOF'
+          import json, os
+          d = json.load(open("vozes.json"))["voices"]
+          clones = [v for v in d if v.get("category") in ("cloned", "professional")]
+          print(f"Vozes na conta: {len(d)} | clonadas: {len(clones)}")
+          for v in clones:
+              print(f"  CLONADA  {v['name']}  id={v['voice_id']}  ({v.get('category')})")
+          for v in [v for v in d if v not in clones][:8]:
+              lab = v.get("labels") or {}
+              print(f"  pronta   {v['name']}  id={v['voice_id']}  {lab.get('accent','')} {lab.get('gender','')}")
+          vid = os.environ.get("VOICE_IN") or (clones[0]["voice_id"] if clones else "")
+          with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+              f.write(f"voice_id={vid}\n")
+          print("Voz para o teste:", vid or "(nenhuma clonada encontrada)")
+          EOF
+
+      - name: Gerar frase de teste
+        if: steps.vozes.outputs.voice_id != ''
+        env:
+          KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+          VID: ${{ steps.vozes.outputs.voice_id }}
+        run: |
+          cat > body.json <<'EOF'
+          {"text": "Oi! Aqui é do Tributalizando. Vendeu mais de trinta e cinco mil reais em cripto no mês? Então o lucro paga imposto, com DARF até o último dia útil do mês seguinte.",
+           "model_id": "eleven_multilingual_v2",
+           "voice_settings": {"stability": 0.5, "similarity_boost": 0.8, "style": 0.0, "use_speaker_boost": true}}
+          EOF
+          code=$(curl -s -o teste-voz.mp3 -w "%{http_code}" -X POST \
+            -H "xi-api-key: $KEY" -H "Content-Type: application/json" -H "Accept: audio/mpeg" \
+            --data @body.json "https://api.elevenlabs.io/v1/text-to-speech/$VID")
+          echo "HTTP text-to-speech: $code"
+          if [ "$code" != "200" ]; then echo "ERRO ao gerar voz:"; head -c 400 teste-voz.mp3; echo; exit 1; fi
+          echo "Áudio gerado: $(stat -c %s teste-voz.mp3) bytes"
+
+      - uses: actions/upload-artifact@v4
+        if: steps.vozes.outputs.voice_id != ''
+        with:
+          name: teste-voz
+          path: teste-voz.mp3
+          retention-days: 7
