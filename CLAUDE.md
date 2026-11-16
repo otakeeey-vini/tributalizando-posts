@@ -55,6 +55,7 @@ a publicação, no minuto 00 de cada hora.
    diferente de `done` não são publicados (o `publish.py` pula); se o horário vencer assim, avise o dono por notificação.
 9. Posts movidos para Gravar: se algum documento tiver `prep_record: true` (o disparo da Rotina E pode ter
    falhado), execute a Rotina E para ele.
+10. Referências: se alguma tiver `status: "analyzing"` há mais de 30 minutos, execute a Rotina F para ela.
 
 ## Rotina D · Processar gravação do dono (disparada pelo painel ao enviar o áudio)
 
@@ -176,6 +177,37 @@ Reels que já tem narração para Gravar só grava `narration_mode: "propria"` e
 4. Na sugestão grave `status: "used"`, `post_id` e um `reply` curto; no post, `suggestion_id`. Sem fonte
    confirmável ou ideia vaga: `status: "info"` com `reply` dizendo o que falta. Sempre com `if_version`.
 5. Acrescente a pauta em `pautas.md` e faça commit.
+
+## Referências de vídeo (aba "Referências" do painel)
+
+Coleção `references/<id>` no painel: `title, link (opcional, só para o dono lembrar a origem), files: [{asset_id, url,
+name, type}], tags (o que reaproveitar: texto | transicoes | ritmo | cores | tipografia | legendas | gancho | roteiro |
+layout), like (o que gostamos), reuse (o que pretendemos reutilizar), avoid (o que NÃO usar), status (analyzing | ready |
+error | archived), analysis, recipe[], error, created_at, analyzed_at`.
+
+**Uso:** ao gerar ou refazer qualquer Reels (Rotinas B, C e E e rascunhos), leia as referências `ready` (não `archived`).
+Se o rascunho ou a sugestão tiver `reference_id`, siga essa referência; se não, use as que tiverem etiquetas ligadas ao
+que você está fazendo (ex.: gancho de abertura → `gancho`). Aplique **só** o que está em `reuse`/`tags` e evite `avoid`.
+Diga no `reply` ou em `claude_notes` qual referência usou. Referência é inspiração de linguagem visual: **nunca** copie
+imagem, áudio, logo, personagem ou texto do vídeo original; tudo sai na identidade do Tributalizando.
+
+## Rotina F · Analisar referência (disparada pelo painel)
+
+Tarefa "Tributalizando · analisar referência" (trig_01Xuqv1HNgKpWHPfuHfW7HPt).
+1. Leia `references` com `status: "analyzing"` (guarde a `version`).
+2. Baixe cada arquivo (Artifact `read`, `url` do painel, `path` = `asset_id`) para uma pasta temporária **fora** do
+   repositório (não versione vídeos de terceiros). Vídeo: tire quadros com `ffmpeg` (troca de cena com
+   `select='gt(scene,0.3)'` e 2 quadros por segundo), monte folhas de contato e **olhe** os quadros; meça duração e
+   número de cortes. Prints: olhe cada imagem.
+3. Escreva em `analysis` (4 a 8 frases, linguagem simples) o que a referência faz no que o dono pediu: como o texto
+   entra e sai, transições, ritmo (cortes por segundo, duração média das cenas), hierarquia e tamanho do texto,
+   cores e contraste, posição na tela, legendas, gancho dos primeiros 3 s.
+4. Em `recipe` liste de 3 a 6 receitas **aplicáveis no `scripts/render_video.py`**, já na nossa identidade (ex.: "títulos
+   entram palavra por palavra a cada 0,08 s, de baixo para cima", "corte seco a cada 2,5 s", "número em destaque com
+   zoom de 110% para 100%"). Se alguma receita exigir um efeito que o gerador ainda não tem, implemente-o como opção
+   do gerador (sem mudar o padrão dos vídeos antigos), teste num vídeo curto, faça commit e mencione na análise.
+5. Grave `analysis`, `recipe`, `status: "ready"`, `analyzed_at`, `error: null` (com `if_version`). Erro (arquivo
+   ilegível, vídeo sem quadros): `status: "error"` e `error` em uma frase.
 
 ## Narração (vale para `speech` dos rascunhos e para `narration` dos Reels)
 
