@@ -28,13 +28,13 @@ jobs:
           python3 - <<'EOF'
           import json, os
           d = json.load(open("vozes.json"))["voices"]
-          clones = [v for v in d if v.get("category") in ("cloned", "professional")]
+          clones = [v for v in d if v.get("category") in ("cloned", "professional") or "freschi" in v.get("name","").lower()]
           print(f"Vozes na conta: {len(d)} | clonadas: {len(clones)}")
           for v in clones:
               print(f"  CLONADA  {v['name']}  id={v['voice_id']}  ({v.get('category')})")
-          for v in [v for v in d if v not in clones][:8]:
+          for v in [v for v in d if v not in clones]:
               lab = v.get("labels") or {}
-              print(f"  pronta   {v['name']}  id={v['voice_id']}  {lab.get('accent','')} {lab.get('gender','')}")
+              print(f"  {v.get('category','?'):<12} {v['name']}  id={v['voice_id']}  {lab.get('accent','')} {lab.get('gender','')}")
           vid = os.environ.get("VOICE_IN") or (clones[0]["voice_id"] if clones else "")
           with open(os.environ["GITHUB_OUTPUT"], "a") as f:
               f.write(f"voice_id={vid}\n")
