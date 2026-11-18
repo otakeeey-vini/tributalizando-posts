@@ -2,6 +2,7 @@
 
 | Data | Hora | Título | Formato |
 |---|---|---|---|
+| 2026-11-18 | 08:00 | Trava de 24h na stablecoin: por que não resolve (sugestão do dono) | reels |
 | 2026-11-16 | 08:00 | Fim da escala 6x1: 42h em dezembro, 40h em 2027 (sugestão do dono) | carrossel |
 | 2026-11-15 | 18:00 | Selic em 13,75%: o imposto de cada investimento (sugestão do dono) | carrossel |
 | 2026-11-15 | 12:00 | IBS e CBS na nota fiscal: os erros mais comuns (sugestão do dono) | carrossel |

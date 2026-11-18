@@ -1,0 +1,54 @@
+{
+  "scheduled_at": "2026-11-18T08:00:00-03:00",
+  "caption": "Seu saque de stablecoin pode ficar preso 24 horas a partir de janeiro. E isso não vai parar o golpista.\n\nA Resolução BCB 584/2026 cria uma retenção cautelar: a corretora autorizada segura por até 24h a transferência acima de US$ 10 mil (sozinha ou somando o dia) para carteira própria ou para empresa de cripto no exterior. O objetivo declarado é combater fraude. O problema é quem a regra alcança.\n\n📌 Não é proibição: a corretora pode liberar antes, se a análise não achar risco\n📌 Só alcança instituições reguladas no Brasil; o que roda fora delas, a trava não pega\n⚠️ Quem espera é o investidor que quer guardar a própria moeda. O próprio setor alerta que a regra pode empurrar operações para ambientes menos rastreáveis\n📅 Vale a partir de 01/01/2027. Na Câmara, o PDL 926/2026 pede para derrubar a norma\n📌 E o controle fiscal já existe: carteira própria, DEX ou corretora no exterior acima de R$ 35 mil no mês = DeCripto até o último dia útil do mês seguinte\n\nConcorda com a trava? Comente e envie para quem guarda stablecoin 👇\n👉 Siga @tributalizando pra entender cada regra nova de cripto antes dela valer.\n\nBase: Resolução BCB 584/2026 (altera a Res. BCB 142/2021); IN RFB 2.291/2025, art. 5º, II, e art. 12.\nConteúdo informativo; cada caso merece análise individual.\n\n#stablecoin #criptomoedas #bancocentral #usdt #autocustodia #decripto #impostodecripto #regulacaocripto",
+  "title": "Trava de 24h na stablecoin: por que não resolve",
+  "sources": [
+    "Resolução BCB nº 584, de 07/08/2026 (altera a Resolução BCB nº 142/2021; vigência 01/01/2027)",
+    "https://normativos.bcb.gov.br/Votos/BCB/202690/Voto_do_BC_90_2026.pdf",
+    "https://www.gov.br/fazenda/pt-br/composicao/orgaos/orgaos-colegiados/crsfn/acesso-a-informacao/noticias/2026/bc-reforca-combate-a-fraudes-com-novas-regras-para-transferencias-de-ativos-virtuais",
+    "https://cointelegraph.com.br/news/central-bank-freeze-stablecoin-brazil-deputies",
+    "IN RFB nº 2.291/2025, art. 5º, II e § 3º, e art. 12"
+  ],
+  "format": "reels",
+  "video": "video.mp4",
+  "cover": "cover.jpg",
+  "images": [
+    "cover.jpg"
+  ],
+  "duration": 56.0,
+  "narration": [
+    {
+      "shows": "Trava de 24h na stablecoin: resolve?",
+      "text": "Em janeiro, sua stablecoin pode ficar presa um dia na corretora. E isso não para o golpista. Eu explico.",
+      "secs": 8.6
+    },
+    {
+      "shows": "O que muda em 2027",
+      "text": "Não é proibição. A corretora segura a transferência por até um dia para ver se o dinheiro veio de golpe. Estando tudo certo, pode liberar antes.",
+      "secs": 11.4
+    },
+    {
+      "shows": "Por que não funciona",
+      "text": "A trava só alcança a corretora brasileira. Fora do sistema regulado, ela não pega nada. E o próprio setor alerta: a regra empurra gente para onde é mais difícil rastrear.",
+      "secs": 13.0
+    },
+    {
+      "shows": "24h",
+      "text": "Quem paga é você: comprou para guardar na própria carteira e espera um dia inteiro sem mexer no dinheiro, por uma análise que pode nem achar nada.",
+      "secs": 11.8
+    },
+    {
+      "shows": "A Receita já vê",
+      "text": "O controle já existe. Passou de trinta e cinco mil no mês na carteira própria? Você entrega a DeCripto até o fim do mês seguinte. Rastreio não falta.",
+      "secs": 12.2
+    },
+    {
+      "shows": "Salve para janeiro",
+      "text": "Vai tirar valor alto da corretora em janeiro? Planeje com um dia de folga. E siga o perfil para entender cada regra nova.",
+      "secs": 10.2
+    }
+  ],
+  "narration_mode": "propria",
+  "voice_status": "waiting",
+  "status": "pending"
+}
