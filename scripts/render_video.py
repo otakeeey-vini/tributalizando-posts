@@ -124,6 +124,8 @@ h2 {{ font-family: Display; font-weight: 800; font-size: 96px; line-height: 1.04
   font-size: 62px; letter-spacing: 1px; text-transform: uppercase; line-height: 1.1; color: #F6F1E6; text-shadow: 0 4px 18px #0008; }}
 #caps span {{ display: inline-block; margin: 0 .16em; opacity: .4; transition: none; }}
 #caps span.said {{ opacity: 1; }} #caps span.now {{ opacity: 1; color: #E8B931; }}
+#caps.lt {{ color: #13221C; text-shadow: none; }} #caps.lt span {{ opacity: .3; }} #caps.lt span.said {{ opacity: 1; }}
+#caps.lt span.now {{ opacity: 1; color: #0E3B2E; background: #E8B931; border-radius: .14em; padding: 0 .12em; margin: 0 .04em; }}
 body.has-caps .handle {{ display: none; }} body.has-caps .note {{ bottom: 500px; }}
 body.glow .scene.dark {{ background: radial-gradient(ellipse 75% 50% at 50% 46%, #0E3B2E 0%, #0A3226 48%, #082A20 78%, #061F18 100%); }}
 body.faixas .scene {{ padding-top: 400px; }}
@@ -199,6 +201,7 @@ function setTime(t) {
   });
   captions(t);
   document.getElementById('chrome').style.color = lightOn ? '#13221C' : '#F6F1E6';
+  const cb = document.getElementById('caps'); if (cb) cb.classList.toggle('lt', lightOn);  // legenda legível nas cenas claras
   document.querySelectorAll('.bars div').forEach(b => b.style.background = lightOn ? '#13221C26' : '#F6F1E640');
 }
 """
