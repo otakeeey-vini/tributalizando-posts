@@ -16,6 +16,14 @@ Spec: mesmos campos dos posts (title, scheduled_at, caption, sources) + "scenes"
   Campo opcional "note" (base legal) em point/big/checklist.
   Campo opcional "speech" (fala da narração) em cada cena.
 Marcação: **texto** = destaque dourado.
+
+Opções de estilo (opcionais; sem elas o vídeo sai como sempre):
+  "captions": true   legenda falada na base da tela, 2 a 3 palavras por vez; a palavra da vez fica dourada,
+                     as já ditas ficam creme e as próximas apagadas (precisa de "speech" nas cenas; a cena cta fica sem legenda).
+                     O tempo segue a voz quando há narração; sem voz, 2,5 palavras por segundo.
+  "bg": "glow"       fundo verde-profundo com um halo verde-floresta no centro (vinheta), em todas as cenas escuras.
+  cta "icon": "salvar"  ícone grande de marcador (salvar) dourado acima do título da cena final.
+  (Inspirado na referência "animação" do painel, nov/2026.)
 A trilha é sintetizada aqui mesmo (sem direitos de terceiros).
 
 Narração (voz sintética): no spec, "narration": "sintetica" e "speech" nas cenas.
@@ -108,14 +116,39 @@ h2 {{ font-family: Display; font-weight: 800; font-size: 96px; line-height: 1.04
 .bars div {{ flex: 1; height: 8px; border-radius: 4px; background: #F6F1E640; overflow: hidden; }}
 .bars i {{ display: block; height: 100%; width: 0; background: #E8B931; }}
 .handle {{ position: absolute; left: 90px; bottom: 400px; font-weight: 700; font-size: 34px; letter-spacing: .5px; }}
+#caps {{ position: absolute; left: 70px; right: 130px; bottom: 395px; text-align: center; font-family: Display; font-weight: 900;
+  font-size: 62px; letter-spacing: 1px; text-transform: uppercase; line-height: 1.1; color: #F6F1E6; text-shadow: 0 4px 18px #0008; }}
+#caps span {{ display: inline-block; margin: 0 .16em; opacity: .4; transition: none; }}
+#caps span.said {{ opacity: 1; }} #caps span.now {{ opacity: 1; color: #E8B931; }}
+body.has-caps .handle {{ display: none; }} body.has-caps .note {{ bottom: 500px; }}
+body.glow .scene.dark {{ background: radial-gradient(ellipse 75% 50% at 50% 46%, #0E3B2E 0%, #0A3226 48%, #082A20 78%, #061F18 100%); }}
+.icon-save {{ width: 190px; height: 230px; margin-bottom: 60px; }}
 #ring {{ position: absolute; width: 760px; height: 760px; border-radius: 50%; border: 90px solid #E8B931; opacity: .07; }}
 """
+SAVE_ICON = ('<svg class="icon-save" viewBox="0 0 76 92"><path d="M8 6h60v80L38 62 8 86z" fill="none" stroke="#E8B931" '
+             'stroke-width="7" stroke-linejoin="round"/></svg>')
 CHECK = '<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#E8B931" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 
 JS = """
 const ease = x => 1 - Math.pow(1 - Math.min(1, Math.max(0, x)), 3);
-let S = [];
-function setup(scenes) { S = scenes; }
+let S = [], C = [];
+function setup(scenes, caps) { S = scenes; C = caps || []; }
+function captions(t) {
+  const box = document.getElementById('caps'); if (!box) return;
+  const c = C.find(c => t >= c.start && t < c.end);
+  if (!c) { box.innerHTML = ''; box.dataset.k = ''; return; }
+  if (box.dataset.k !== String(c.start)) {
+    box.dataset.k = String(c.start);
+    box.innerHTML = c.words.map(w => `<span>${w.txt}</span>`).join(' ');
+  }
+  const sp = box.querySelectorAll('span');
+  c.words.forEach((w, k) => {
+    const next = k + 1 < c.words.length ? c.words[k + 1].t : c.end;
+    sp[k].className = t >= next ? 'said' : (t >= w.t ? 'now' : '');
+  });
+  const p = ease((t - c.start) / 0.15);
+  box.style.opacity = p; box.style.transform = `translateY(${(1 - p) * 18}px)`;
+}
 function fmt(v, dec) { return dec ? v.toFixed(1).replace('.', ',') : Math.round(v).toLocaleString('pt-BR'); }
 function setTime(t) {
   const total = S[S.length - 1].end;
@@ -149,6 +182,7 @@ function setTime(t) {
       c.textContent = fmt(target * p, dec);
     });
   });
+  captions(t);
   document.getElementById('chrome').style.color = lightOn ? '#13221C' : '#F6F1E6';
   document.querySelectorAll('.bars div').forEach(b => b.style.background = lightOn ? '#13221C26' : '#F6F1E640');
 }
@@ -226,6 +260,8 @@ def scene_html(s, i):
                       for k, x in enumerate(s["items"]))
         parts.append(f'<ul class="items">{lis}</ul>')
     elif t == "cta":
+        if s.get("icon") == "salvar":
+            parts.append(f'<div class="a" data-in="{at:.2f}">{SAVE_ICON}</div>'); at += 0.25
         w, at = words(s["title"], at); parts.append(f"<h2>{w}</h2>")
         if s.get("body"):
             parts.append(f'<div class="quote a" data-in="{at + 0.2:.2f}">{md(s["body"])}</div>'); at += 0.3
@@ -417,9 +453,11 @@ def render(spec_path):
             voices, engine = tts([s.get("speech", "") for s in scenes], vt)
     elif mode and mode != "nenhuma":
         print("aviso: narração pedida, mas nenhuma cena tem 'speech'; vídeo sai sem voz")
-    tl = timeline(scenes, [len(v) / SR if v is not None else 0 for v in voices] if voices else None)
+    vlens = [len(v) / SR if v is not None else 0 for v in voices] if voices else None
+    tl = timeline(scenes, vlens)
     total = tl[-1]["end"]
-    doc = build_doc(scenes)
+    doc = build_doc(scenes, spec)
+    spec["_caps"] = caption_track(scenes, tl, vlens) if spec.get("captions") else []
     placed = [(tl[k]["start"] + VOICE_IN, v) for k, v in enumerate(voices) if v is not None] if voices else None
     _render_files(spec, folder, tl, total, doc, placed, engine, mode)
 
@@ -473,13 +511,41 @@ def own_voice(files, n):
     return parts
 
 
-def build_doc(scenes):
+def caption_track(scenes, tl, voice_lens=None, per=3):
+    """Divide a fala de cada cena em blocos de até `per` palavras, com o instante de cada palavra."""
+    out = []
+    for k, s in enumerate(scenes):
+        ws = re.sub(r"\*\*", "", s.get("speech") or "").split()
+        if not ws or s["type"] == "cta":  # na cena final a lista de ações ocupa a base da tela
+            continue
+        t0 = tl[k]["start"] + VOICE_IN
+        dur = voice_lens[k] if voice_lens and voice_lens[k] else len(ws) / 2.5
+        dur = min(dur, tl[k]["end"] - t0 - 0.1)
+        first = len(out)
+        weight = [len(w.strip(",.;:!?")) + 2 for w in ws]
+        tot, acc, times = sum(weight), 0, []
+        for w in weight:
+            times.append(round(t0 + dur * acc / tot, 3)); acc += w
+        chunk = []
+        for i, w in enumerate(ws):
+            chunk.append({"t": times[i], "txt": html.escape(w.strip(",;:"))})
+            if len(chunk) == per or w[-1] in ".,;:!?" or i == len(ws) - 1:
+                out.append({"start": chunk[0]["t"], "words": chunk}); chunk = []
+        scene_end = tl[k]["end"] - 0.05
+        for j in range(first, len(out)):
+            out[j]["end"] = out[j + 1]["start"] if j + 1 < len(out) else min(scene_end, t0 + dur + 0.4)
+    return out
+
+
+def build_doc(scenes, spec=None):
+    spec = spec or {}
+    cls = " ".join(c for c, on in (("has-caps", spec.get("captions")), ("glow", spec.get("bg") == "glow")) if on)
     bars = "".join("<div><i></i></div>" for _ in scenes)
-    return (f'<!doctype html><html><head><meta charset="utf-8"><style>{CSS}</style></head><body>'
+    return (f'<!doctype html><html><head><meta charset="utf-8"><style>{CSS}</style></head><body class="{cls}">'
            f'<div id="ring"></div>{"".join(scene_html(s, i) for i, s in enumerate(scenes))}'
            f'<div id="chrome"><div class="bars">{bars}</div>'
            f'<div class="brand">{LOGO}<span>tributa<span class="b2">lizando</span></span></div>'
-           f'<div class="handle">@tributalizando</div></div>'
+           f'<div class="handle">@tributalizando</div>{'<div id="caps"></div>' if spec.get("captions") else ""}</div>'
            f'<script>{JS}</script></body></html>')
 
 
@@ -489,11 +555,12 @@ def preview(spec_path, times, out_dir):
     tl = timeline(spec["scenes"])
     out_dir = Path(out_dir); out_dir.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory() as tmp:
-        f = Path(tmp) / "reel.html"; f.write_text(build_doc(spec["scenes"]), encoding="utf-8")
+        f = Path(tmp) / "reel.html"; f.write_text(build_doc(spec["scenes"], spec), encoding="utf-8")
+        caps = caption_track(spec["scenes"], tl) if spec.get("captions") else []
         with sync_playwright() as p:
             browser = p.chromium.launch(executable_path="/usr/bin/google-chrome", args=["--allow-file-access-from-files"])
             page = browser.new_page(viewport={"width": W, "height": H}, device_scale_factor=1)
-            page.goto(f.as_uri()); page.evaluate("document.fonts.ready"); page.evaluate(f"setup({json.dumps(tl)})")
+            page.goto(f.as_uri()); page.evaluate("document.fonts.ready"); page.evaluate(f"setup({json.dumps(tl)}, {json.dumps(caps)})")
             if not times:  # fim de cada cena, com tudo já animado
                 times = [s["end"] - 0.45 for s in tl]
             for k, t in enumerate(times):
@@ -519,7 +586,7 @@ def _render_files(spec, folder, tl, total, doc, voices=None, engine=None, mode="
             page = browser.new_page(viewport={"width": W, "height": H}, device_scale_factor=1)
             page.goto(page_file.as_uri())
             page.evaluate("document.fonts.ready")
-            page.evaluate(f"setup({json.dumps(tl)})")
+            page.evaluate(f"setup({json.dumps(tl)}, {json.dumps(spec.get('_caps', []))})")
             frames = int(math.ceil(total * FPS))
             for f in range(frames):
                 page.evaluate(f"setTime({f / FPS})")
