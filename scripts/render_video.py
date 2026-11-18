@@ -23,7 +23,11 @@ Opções de estilo (opcionais; sem elas o vídeo sai como sempre):
                      O tempo segue a voz quando há narração; sem voz, 2,5 palavras por segundo.
   "bg": "glow"       fundo verde-profundo com um halo verde-floresta no centro (vinheta), em todas as cenas escuras.
   cta "icon": "salvar"  ícone grande de marcador (salvar) dourado acima do título da cena final.
-  (Inspirado na referência "animação" do painel, nov/2026.)
+  "frame": "faixas"  tela em faixas: faixa verde-profunda em cima (marca + "series", o nome da série em caixa alta)
+                     e embaixo (onde corre a legenda, se "captions"); o conteúdo fica no meio, como um cartão.
+                     Cenas point com "n" mostram o contador "n/N" no canto do cartão (N = maior n do vídeo).
+  "series": "texto"  nome fixo da série na faixa de cima (só com "frame": "faixas").
+  (Inspirado nas referências "animação" e "snapinsta-1794973006837" do painel, nov/2026.)
 A trilha é sintetizada aqui mesmo (sem direitos de terceiros).
 
 Narração (voz sintética): no spec, "narration": "sintetica" e "speech" nas cenas.
@@ -122,6 +126,17 @@ h2 {{ font-family: Display; font-weight: 800; font-size: 96px; line-height: 1.04
 #caps span.said {{ opacity: 1; }} #caps span.now {{ opacity: 1; color: #E8B931; }}
 body.has-caps .handle {{ display: none; }} body.has-caps .note {{ bottom: 500px; }}
 body.glow .scene.dark {{ background: radial-gradient(ellipse 75% 50% at 50% 46%, #0E3B2E 0%, #0A3226 48%, #082A20 78%, #061F18 100%); }}
+body.faixas .scene {{ padding-top: 400px; }}
+body.faixas .bars {{ display: none; }}
+.band {{ position: absolute; left: 0; right: 0; background: #082A20; }}
+.band.top {{ top: 0; height: 300px; }} .band.bot {{ top: 1500px; bottom: 0; }}
+.series {{ position: absolute; left: 70px; right: 70px; top: 214px; text-align: center; font-family: Display; font-weight: 900;
+  font-size: 50px; letter-spacing: 1.5px; text-transform: uppercase; color: #F6F1E6; }}
+body.faixas .brand {{ top: 112px; left: 50%; transform: translateX(-50%); font-size: 34px; gap: 14px; color: #F6F1E6 !important; }}
+body.faixas .brand svg {{ width: 56px; height: 56px; }}
+body.faixas #caps {{ bottom: 330px; }}
+.ctr {{ position: absolute; top: 330px; right: 70px; font-family: Display; font-weight: 900; font-size: 36px; color: #E8B931; }}
+.light .ctr {{ color: #C99A14; }}
 .icon-save {{ width: 190px; height: 230px; margin-bottom: 60px; }}
 #ring {{ position: absolute; width: 760px; height: 760px; border-radius: 50%; border: 90px solid #E8B931; opacity: .07; }}
 """
@@ -539,11 +554,20 @@ def caption_track(scenes, tl, voice_lens=None, per=3):
 
 def build_doc(scenes, spec=None):
     spec = spec or {}
-    cls = " ".join(c for c, on in (("has-caps", spec.get("captions")), ("glow", spec.get("bg") == "glow")) if on)
+    faixas = spec.get("frame") == "faixas"
+    cls = " ".join(c for c, on in (("has-caps", spec.get("captions")), ("glow", spec.get("bg") == "glow"), ("faixas", faixas)) if on)
+    secs = [scene_html(s, i) for i, s in enumerate(scenes)]
+    if faixas:
+        ns = [int(s["n"]) for s in scenes if s["type"] == "point" and str(s.get("n", "")).isdigit()]
+        for i, s in enumerate(scenes):
+            if ns and s["type"] == "point" and str(s.get("n", "")).isdigit():
+                secs[i] = secs[i][:-len("</section>")] + f'<div class="ctr">{s["n"]}/{max(ns)}</div></section>'
+    bands = (f'<div class="band top"></div><div class="band bot"></div>'
+             f'<div class="series">{md(spec.get("series", ""))}</div>') if faixas else ""
     bars = "".join("<div><i></i></div>" for _ in scenes)
     return (f'<!doctype html><html><head><meta charset="utf-8"><style>{CSS}</style></head><body class="{cls}">'
-           f'<div id="ring"></div>{"".join(scene_html(s, i) for i, s in enumerate(scenes))}'
-           f'<div id="chrome"><div class="bars">{bars}</div>'
+           f'<div id="ring"></div>{"".join(secs)}'
+           f'<div id="chrome">{bands}<div class="bars">{bars}</div>'
            f'<div class="brand">{LOGO}<span>tributa<span class="b2">lizando</span></span></div>'
            f'<div class="handle">@tributalizando</div>{'<div id="caps"></div>' if spec.get("captions") else ""}</div>'
            f'<script>{JS}</script></body></html>')
